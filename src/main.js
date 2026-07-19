@@ -3,9 +3,12 @@ import { setupRouter } from './js/router';
 import { initAuthFlow } from './js/auth';
 import { setupUsersEvents } from './js/users';
 import { setupDocsEvents } from './js/documents';
+import { initGlobalTheme } from './js/settings';
 
 // Entry Point SPA Murni
 document.addEventListener('DOMContentLoaded', () => {
+  initGlobalTheme();
+  
   // 1. Pasang Event Listeners Statis (Form Submit, Logout, dll) hanya SEKALI
   initAuthFlow();
   setupUsersEvents();

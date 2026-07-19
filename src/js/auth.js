@@ -51,8 +51,25 @@ export function initAuthFlow() {
   }
 }
 
-// Hanya mengembalikan boolean status sesi
+// Fungsi bantu untuk mengubah nama dan avatar di Header
+export function updateHeaderProfile(user) {
+  const headerName = document.getElementById('headerUserName');
+  const headerAvatar = document.getElementById('headerUserAvatar');
+  if(user && headerName) {
+    const name = user.user_metadata?.full_name || 'Admin User';
+    headerName.textContent = name;
+    if(headerAvatar) {
+      headerAvatar.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=2563EB&color=fff`;
+    }
+  }
+}
+
+// Hanya mengembalikan boolean status sesi, tapi sekalian update header
 export async function checkSession() {
   const { data: { session } } = await supabase.auth.getSession();
-  return !!session;
+  if (session) {
+    updateHeaderProfile(session.user);
+    return true;
+  }
+  return false;
 }

@@ -60,6 +60,8 @@ export async function handleRoute() {
   // 5. Panggil Inisialisasi Data Spesifik Komponen
   if (hash === '#users') {
     initUsersData();
+  } else if (hash === '#settings') {
+    import('./settings').then(module => module.initSettingsData());
   } else if (hash === '#dashboard' || hash === '') {
     initDocsData();
   }
