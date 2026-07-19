@@ -1,0 +1,7 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+/* Kita bisa tambahkan kustomisasi CSS tambahan di sini jika perlu */
+body {
+  @apply font-sans;
+}
