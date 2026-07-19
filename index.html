@@ -4,33 +4,57 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin Dashboard SPA</title>
+  <!-- Google Fonts: Inter untuk tipografi modern dan premium -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    /* Kustomisasi scrollbar tipis */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: oklch(var(--bc) / 0.2); border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: oklch(var(--bc) / 0.4); }
+  </style>
 </head>
-<body class="bg-base-200 text-base-content font-sans transition-colors duration-300">
+<body class="bg-base-200 text-base-content antialiased transition-colors duration-300 min-h-screen">
   <div id="app" class="relative">
     
     <!-- ==================== VIEW LOGIN ==================== -->
-    <section id="view-login" class="hidden min-h-screen flex items-center justify-center p-4 z-50 absolute inset-0 bg-base-200">
-      <div class="card w-full max-w-sm shadow-2xl bg-base-100 border border-base-300">
-        <div class="card-body">
-          <div class="text-center mb-6">
-            <h1 class="text-2xl font-bold text-primary">AdminPanel</h1>
-            <p class="text-sm text-base-content/70 mt-1">Silakan masuk ke akun Anda</p>
+    <section id="view-login" class="hidden min-h-screen flex items-center justify-center p-4 z-50 absolute inset-0 bg-gradient-to-br from-base-200 via-base-100 to-base-300">
+      <!-- Ornamen Latar Belakang -->
+      <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none opacity-30">
+        <div class="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] rounded-full bg-primary/20 blur-3xl"></div>
+        <div class="absolute top-[60%] right-[0%] w-[40%] h-[40%] rounded-full bg-secondary/10 blur-3xl"></div>
+      </div>
+      
+      <div class="card w-full max-w-md bg-base-100/70 backdrop-blur-xl border border-white/10 shadow-2xl z-10 relative overflow-hidden rounded-2xl">
+        <div class="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent pointer-events-none"></div>
+        <div class="card-body p-8 sm:p-10 relative z-10">
+          <div class="text-center mb-8">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 text-primary mb-4 shadow-inner">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+            </div>
+            <h1 class="text-3xl font-bold tracking-tight text-base-content">Admin Portal</h1>
+            <p class="text-sm text-base-content/60 mt-2 font-medium">Autentikasi sesi Anda untuk melanjutkan</p>
           </div>
-          <div id="loginAlert" class="alert alert-error shadow-sm hidden mb-4 py-2 text-sm">
+          
+          <div id="loginAlert" class="alert alert-error shadow-sm hidden mb-6 py-3 text-sm rounded-xl">
             <span id="loginAlertMessage"></span>
           </div>
-          <form id="loginForm" class="space-y-4">
+
+          <form id="loginForm" class="space-y-5">
             <div class="form-control">
-              <label class="label"><span class="label-text">Email</span></label>
-              <input type="email" id="emailInput" placeholder="admin@example.com" class="input input-bordered w-full" required />
+              <label class="label pb-1"><span class="label-text font-semibold text-base-content/80">Alamat Email</span></label>
+              <input type="email" id="emailInput" placeholder="admin@example.com" class="input input-bordered w-full bg-base-200/50 focus:bg-base-100 focus:border-primary transition-colors rounded-xl" required />
             </div>
             <div class="form-control">
-              <label class="label"><span class="label-text">Password</span></label>
-              <input type="password" id="passwordInput" placeholder="••••••••" class="input input-bordered w-full" required />
+              <label class="label pb-1"><span class="label-text font-semibold text-base-content/80">Kata Sandi</span></label>
+              <input type="password" id="passwordInput" placeholder="••••••••" class="input input-bordered w-full bg-base-200/50 focus:bg-base-100 focus:border-primary transition-colors rounded-xl" required />
             </div>
-            <div class="form-control mt-6">
-              <button type="submit" id="loginBtn" class="btn btn-primary w-full">
-                Masuk
+            <div class="form-control mt-8">
+              <button type="submit" id="loginBtn" class="btn btn-primary w-full rounded-xl shadow-lg shadow-primary/30 hover:shadow-primary/50 transition-all duration-300">
+                Masuk ke Dasbor
                 <span id="loginSpinner" class="loading loading-spinner hidden"></span>
               </button>
             </div>
@@ -40,93 +64,160 @@
     </section>
     
     <!-- ==================== VIEW UTAMA (APP) ==================== -->
-    <section id="view-main" class="hidden flex h-screen overflow-hidden">
-      <!-- Sidebar -->
-      <aside id="sidebar" class="w-64 bg-base-100 flex flex-col hidden md:flex border-r border-base-300 absolute md:relative z-20 h-full shadow-lg md:shadow-none transition-all duration-300">
-        <div class="p-4 border-b border-base-300 flex items-center justify-between">
-          <h1 class="text-xl font-bold text-primary">AdminPanel</h1>
-          <button id="closeSidebar" class="btn btn-sm btn-ghost md:hidden">✕</button>
+    <section id="view-main" class="hidden flex h-screen overflow-hidden bg-base-200/50">
+      
+      <!-- Sidebar Glassmorphism -->
+      <aside id="sidebar" class="w-72 bg-base-100/90 backdrop-blur-xl flex flex-col hidden md:flex border-r border-base-content/5 absolute md:relative z-30 h-full shadow-2xl md:shadow-none transition-transform duration-300 ease-in-out">
+        <div class="p-6 border-b border-base-content/5 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-primary to-secondary flex items-center justify-center text-white font-bold shadow-md">
+              A
+            </div>
+            <h1 class="text-xl font-bold tracking-tight text-base-content">Admin<span class="text-primary">Panel</span></h1>
+          </div>
+          <button id="closeSidebar" class="btn btn-sm btn-circle btn-ghost md:hidden">✕</button>
         </div>
-        <nav class="flex-1 overflow-y-auto p-4 space-y-2">
-          <a href="#dashboard" class="nav-link flex items-center gap-3 p-3 rounded-lg hover:bg-base-200 transition-colors bg-primary text-primary-content">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
+        
+        <div class="px-6 py-4">
+          <p class="text-xs font-bold text-base-content/40 uppercase tracking-wider mb-2">Menu Utama</p>
+        </div>
+        
+        <nav class="flex-1 overflow-y-auto px-4 space-y-1">
+          <a href="#dashboard" class="nav-link flex items-center gap-3 p-3 rounded-xl hover:bg-primary/10 hover:text-primary transition-all duration-200 text-base-content font-medium group">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 opacity-70 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
             Dasbor Dokumen
           </a>
-          <a href="#users" class="nav-link flex items-center gap-3 p-3 rounded-lg hover:bg-base-200 transition-colors text-base-content">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
-            Pengguna
+          
+          <a href="#users" class="nav-link flex items-center gap-3 p-3 rounded-xl hover:bg-primary/10 hover:text-primary transition-all duration-200 text-base-content font-medium group">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 opacity-70 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+            Manajemen Pengguna
           </a>
-          <a href="#settings" class="nav-link flex items-center gap-3 p-3 rounded-lg hover:bg-base-200 transition-colors text-base-content">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+          
+          <div class="divider my-2"></div>
+          
+          <p class="text-xs font-bold text-base-content/40 uppercase tracking-wider mb-2 px-2">Preferensi</p>
+          
+          <a href="#settings" class="nav-link flex items-center gap-3 p-3 rounded-xl hover:bg-primary/10 hover:text-primary transition-all duration-200 text-base-content font-medium group">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 opacity-70 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
             Pengaturan
           </a>
         </nav>
       </aside>
 
-      <!-- Overlay untuk Sidebar di Mobile -->
-      <div id="sidebarOverlay" class="fixed inset-0 bg-black/50 z-10 hidden md:hidden"></div>
+      <!-- Overlay Sidebar Mobile -->
+      <div id="sidebarOverlay" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-20 hidden md:hidden transition-opacity"></div>
 
       <!-- Main Content Area -->
       <div class="flex-1 flex flex-col relative overflow-hidden">
-        <!-- Topbar -->
-        <header class="h-16 bg-base-100 flex items-center justify-between px-4 lg:px-8 border-b border-base-300">
-          <button id="sidebarToggle" class="btn btn-square btn-ghost md:hidden">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-          </button>
+        
+        <!-- Header Glassmorphism -->
+        <header class="h-20 bg-base-100/70 backdrop-blur-md flex items-center justify-between px-6 lg:px-10 border-b border-base-content/5 z-10 sticky top-0">
+          <div class="flex items-center gap-4">
+            <button id="sidebarToggle" class="btn btn-square btn-ghost md:hidden rounded-xl">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+            <div class="hidden md:block">
+              <h2 class="text-xl font-bold tracking-tight">Selamat Datang,</h2>
+              <p class="text-xs text-base-content/50">Pantau performa sistem Anda hari ini.</p>
+            </div>
+          </div>
           
-          <div class="flex-1 flex justify-end gap-4 items-center">
-            <!-- Menampilkan Nama Admin Secara Dinamis -->
-            <span id="headerUserName" class="text-sm font-semibold hidden md:block">Loading...</span>
-            
+          <div class="flex items-center gap-4">
             <div class="dropdown dropdown-end">
-              <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar border border-base-300 shadow-sm">
-                <div class="w-10 rounded-full">
-                  <img id="headerUserAvatar" alt="User avatar" src="https://ui-avatars.com/api/?name=Admin+User&background=2563EB&color=fff" />
+              <div tabindex="0" role="button" class="flex items-center gap-3 btn btn-ghost h-auto py-2 px-3 rounded-xl hover:bg-base-200 transition-colors">
+                <div class="text-right hidden sm:block">
+                  <span id="headerUserName" class="block text-sm font-bold text-base-content">Loading...</span>
+                  <span class="block text-xs text-base-content/50">Administrator</span>
+                </div>
+                <div class="avatar">
+                  <div class="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 shadow-sm transition-transform hover:scale-105">
+                    <img id="headerUserAvatar" alt="User avatar" src="https://ui-avatars.com/api/?name=Admin+User&background=2563EB&color=fff" />
+                  </div>
                 </div>
               </div>
-              <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                <li><a href="#settings" class="nav-link">Settings</a></li>
-                <li><a id="btnGlobalLogout" class="text-error font-semibold">Logout</a></li>
+              <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow-xl bg-base-100 rounded-xl w-52 border border-base-200">
+                <li><a href="#settings" class="nav-link py-3"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 opacity-70" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg> Pengaturan Profil</a></li>
+                <div class="divider my-1"></div>
+                <li><a id="btnGlobalLogout" class="py-3 text-error font-semibold hover:bg-error/10"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg> Keluar Sistem</a></li>
               </ul>
             </div>
           </div>
         </header>
 
-        <!-- Main Scrollable Content -->
-        <main class="flex-1 overflow-x-hidden overflow-y-auto bg-base-200 p-4 lg:p-8">
+        <!-- Main Scrollable Content Area -->
+        <main class="flex-1 overflow-x-hidden overflow-y-auto p-6 lg:p-10 relative">
           
+          <!-- Hiasan Latar Belakang Area Utama -->
+          <div class="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -z-10 pointer-events-none"></div>
+
           <!-- === HALAMAN DASBOR DOKUMEN === -->
-          <div id="page-dashboard" class="page-view hidden space-y-6 max-w-7xl mx-auto">
+          <div id="page-dashboard" class="page-view hidden space-y-8 max-w-7xl mx-auto">
+            
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-              <h2 class="text-2xl font-bold">Dasbor Dokumen</h2>
-              <button class="btn btn-primary" onclick="document.getElementById('doc_modal').showModal()">+ Tambah Dokumen</button>
+              <div>
+                <h2 class="text-3xl font-bold tracking-tight">Dasbor Area</h2>
+                <p class="text-base-content/60 mt-1">Ringkasan metrik dan aktivitas terbaru.</p>
+              </div>
+              <button class="btn btn-primary rounded-xl shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-shadow" onclick="document.getElementById('doc_modal').showModal()">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
+                Tambah Dokumen
+              </button>
             </div>
 
-            <!-- Stats -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div class="stat bg-base-100 shadow rounded-box">
-                <div class="stat-figure text-primary">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+            <!-- Metrik & Placeholders Berjejer -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <!-- Kartu Metrik Utama -->
+              <div class="stat bg-base-100 rounded-2xl border border-base-content/5 shadow-sm hover:shadow-md transition-shadow duration-300">
+                <div class="stat-figure text-primary/20">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-12 h-12 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                 </div>
-                <div class="stat-title">Total Dokumen</div>
-                <div class="stat-value text-primary" id="statTotalDoc">0</div>
+                <div class="stat-title font-medium text-base-content/60">Total Dokumen Aktif</div>
+                <div class="stat-value text-primary text-4xl mt-1" id="statTotalDoc">0</div>
+                <div class="stat-desc font-medium text-success mt-1 flex items-center gap-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" /></svg>
+                  Berdasarkan database
+                </div>
+              </div>
+              
+              <!-- Placeholder Kartu Kosong (Untuk Estetika & Rencana Kedepan) -->
+              <div class="stat bg-base-100/50 rounded-2xl border border-dashed border-base-content/20 opacity-70 hover:opacity-100 transition-opacity flex flex-col justify-center items-center text-center p-6 cursor-not-allowed">
+                <div class="w-10 h-10 rounded-full bg-base-200 flex items-center justify-center mb-3 text-base-content/40">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" /></svg>
+                </div>
+                <span class="text-sm font-semibold text-base-content/50">Ruang Widget Baru</span>
+              </div>
+              <div class="stat bg-base-100/50 rounded-2xl border border-dashed border-base-content/20 opacity-70 hover:opacity-100 transition-opacity flex flex-col justify-center items-center text-center p-6 cursor-not-allowed hidden lg:flex">
+                <div class="w-10 h-10 rounded-full bg-base-200 flex items-center justify-center mb-3 text-base-content/40">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" /></svg>
+                </div>
+                <span class="text-sm font-semibold text-base-content/50">Ruang Widget Baru</span>
+              </div>
+              <div class="stat bg-base-100/50 rounded-2xl border border-dashed border-base-content/20 opacity-70 hover:opacity-100 transition-opacity flex flex-col justify-center items-center text-center p-6 cursor-not-allowed hidden lg:flex">
+                <div class="w-10 h-10 rounded-full bg-base-200 flex items-center justify-center mb-3 text-base-content/40">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" /></svg>
+                </div>
+                <span class="text-sm font-semibold text-base-content/50">Ruang Widget Baru</span>
               </div>
             </div>
 
-            <!-- Table Dokumen -->
-            <div class="bg-base-100 shadow rounded-box p-6">
+            <!-- Area Table Data Dokumen (Glass Card style) -->
+            <div class="bg-base-100 rounded-2xl shadow-sm border border-base-content/5 overflow-hidden">
+              <div class="p-6 border-b border-base-content/5 flex justify-between items-center bg-base-100/50">
+                <h3 class="font-bold text-lg">Direktori Dokumen</h3>
+                <div class="badge badge-primary badge-outline">Real-time</div>
+              </div>
               <div class="overflow-x-auto">
-                <table class="table w-full">
-                  <thead>
+                <table class="table w-full border-collapse">
+                  <thead class="bg-base-200/50 text-base-content/70">
                     <tr>
-                      <th>ID</th>
-                      <th>Judul Dokumen</th>
-                      <th>Deskripsi</th>
-                      <th>Tanggal Dibuat</th>
+                      <th class="font-medium rounded-none">ID Ref</th>
+                      <th class="font-medium">Judul Dokumen</th>
+                      <th class="font-medium">Deskripsi Utama</th>
+                      <th class="font-medium">Tanggal Dibuat</th>
                     </tr>
                   </thead>
-                  <tbody id="docsTableBody">
-                     <tr><td colspan="4" class="text-center py-4"><span class="loading loading-spinner"></span></td></tr>
+                  <tbody id="docsTableBody" class="divide-y divide-base-content/5">
+                     <tr><td colspan="4" class="text-center py-10"><span class="loading loading-bars text-primary"></span><p class="mt-2 text-sm opacity-50">Menyinkronkan data...</p></td></tr>
                   </tbody>
                 </table>
               </div>
@@ -134,26 +225,35 @@
           </div>
 
           <!-- === HALAMAN PENGGUNA === -->
-          <div id="page-users" class="page-view hidden space-y-6 max-w-7xl mx-auto">
+          <div id="page-users" class="page-view hidden space-y-8 max-w-7xl mx-auto">
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-              <h2 class="text-2xl font-bold">Manajemen Pengguna</h2>
-              <button class="btn btn-primary" onclick="document.getElementById('user_modal').showModal()">+ Tambah Pengguna</button>
+              <div>
+                <h2 class="text-3xl font-bold tracking-tight">Manajemen Pengguna</h2>
+                <p class="text-base-content/60 mt-1">Kontrol akses dan perizinan sistem.</p>
+              </div>
+              <button class="btn btn-primary rounded-xl shadow-lg shadow-primary/20" onclick="document.getElementById('user_modal').showModal()">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
+                Pengguna Baru
+              </button>
             </div>
 
-            <div class="bg-base-100 shadow rounded-box p-6">
+            <div class="bg-base-100 rounded-2xl shadow-sm border border-base-content/5 overflow-hidden">
+              <div class="p-6 border-b border-base-content/5 bg-base-100/50">
+                <h3 class="font-bold text-lg">Daftar Akun Terdaftar</h3>
+              </div>
               <div class="overflow-x-auto">
                 <table class="table w-full">
-                  <thead>
+                  <thead class="bg-base-200/50 text-base-content/70">
                     <tr>
-                      <th>Nama Lengkap</th>
-                      <th>Email</th>
-                      <th>Peran</th>
-                      <th>Status</th>
-                      <th>Aksi</th>
+                      <th class="font-medium rounded-none">Nama Lengkap</th>
+                      <th class="font-medium">Alamat Email</th>
+                      <th class="font-medium">Peran</th>
+                      <th class="font-medium">Status Akses</th>
+                      <th class="font-medium">Aksi</th>
                     </tr>
                   </thead>
-                  <tbody id="usersTableBody">
-                    <tr><td colspan="5" class="text-center py-4"><span class="loading loading-spinner"></span></td></tr>
+                  <tbody id="usersTableBody" class="divide-y divide-base-content/5">
+                    <tr><td colspan="5" class="text-center py-10"><span class="loading loading-bars text-primary"></span></td></tr>
                   </tbody>
                 </table>
               </div>
@@ -161,39 +261,58 @@
           </div>
 
           <!-- === HALAMAN SETTINGS === -->
-          <div id="page-settings" class="page-view hidden space-y-6 max-w-3xl mx-auto">
-            <h2 class="text-2xl font-bold">Pengaturan</h2>
+          <div id="page-settings" class="page-view hidden space-y-8 max-w-3xl mx-auto">
+            <div>
+              <h2 class="text-3xl font-bold tracking-tight">Pengaturan Sistem</h2>
+              <p class="text-base-content/60 mt-1">Sesuaikan preferensi dan profil identitas Anda.</p>
+            </div>
             
-            <div id="settingsAlertContainer" class="hidden alert shadow-sm mb-4">
+            <div id="settingsAlertContainer" class="hidden alert shadow-sm mb-4 rounded-xl">
                <span id="settingsAlertMessage"></span>
             </div>
 
-            <div class="bg-base-100 shadow rounded-box p-6 space-y-8">
-              
+            <div class="bg-base-100 rounded-2xl shadow-sm border border-base-content/5 p-8 space-y-10 relative overflow-hidden">
+              <!-- Aksen Ornamen di dalam kartu pengaturan -->
+              <div class="absolute -top-10 -right-10 w-32 h-32 bg-primary/5 rounded-full blur-2xl pointer-events-none"></div>
+
               <!-- Tema -->
               <section>
-                <h3 class="text-lg font-semibold mb-4 border-b border-base-300 pb-2">Preferensi Tampilan</h3>
-                <div class="form-control flex-row items-center gap-4">
-                  <span class="label-text">Tema Gelap (Dark Mode)</span>
-                  <input type="checkbox" id="themeToggle" class="toggle toggle-primary" />
+                <div class="flex items-center gap-3 mb-6 border-b border-base-content/10 pb-3">
+                  <div class="p-2 bg-primary/10 text-primary rounded-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+                  </div>
+                  <h3 class="text-xl font-bold tracking-tight">Tampilan Antarmuka</h3>
+                </div>
+                <div class="bg-base-200/50 p-4 rounded-xl flex items-center justify-between border border-base-content/5 hover:border-primary/30 transition-colors">
+                  <div>
+                    <span class="font-semibold block">Mode Gelap (Dark Theme)</span>
+                    <span class="text-xs text-base-content/60">Nyalakan untuk mengurangi ketegangan mata</span>
+                  </div>
+                  <input type="checkbox" id="themeToggle" class="toggle toggle-primary toggle-lg" />
                 </div>
               </section>
 
               <!-- Profil Admin -->
               <section>
-                <h3 class="text-lg font-semibold mb-4 border-b border-base-300 pb-2">Profil Admin</h3>
-                <form id="profileForm" class="space-y-4">
+                <div class="flex items-center gap-3 mb-6 border-b border-base-content/10 pb-3">
+                  <div class="p-2 bg-secondary/10 text-secondary rounded-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+                  </div>
+                  <h3 class="text-xl font-bold tracking-tight">Profil Administrator</h3>
+                </div>
+                <form id="profileForm" class="space-y-5">
                   <div class="form-control">
-                    <label class="label"><span class="label-text">Nama Lengkap</span></label>
-                    <input type="text" id="inputProfileName" class="input input-bordered w-full" placeholder="Masukkan nama Anda" required />
+                    <label class="label pb-1"><span class="label-text font-semibold">Nama Lengkap (Ditampilkan Publik)</span></label>
+                    <input type="text" id="inputProfileName" class="input input-bordered w-full rounded-xl focus:border-primary transition-colors bg-base-100" placeholder="Masukkan nama Anda" required />
                   </div>
                   <div class="form-control">
-                    <label class="label"><span class="label-text">Email (Hanya Baca)</span></label>
-                    <input type="email" id="inputProfileEmail" class="input input-bordered w-full" disabled />
+                    <label class="label pb-1"><span class="label-text font-semibold">Alamat Email (Kredensial Login)</span></label>
+                    <input type="email" id="inputProfileEmail" class="input input-bordered w-full rounded-xl bg-base-200 text-base-content/50 cursor-not-allowed" disabled />
+                    <label class="label pt-1"><span class="label-text-alt text-base-content/50">Email tidak dapat diubah dari panel ini. Hubungi Superadmin.</span></label>
                   </div>
-                  <div class="mt-4">
-                    <button type="submit" class="btn btn-primary" id="btnSaveProfile">
-                      Simpan Perubahan
+                  <div class="pt-2">
+                    <button type="submit" class="btn btn-primary rounded-xl px-8 shadow-lg shadow-primary/20 hover:shadow-primary/40" id="btnSaveProfile">
+                      Simpan Profil
                       <span id="profileSpinner" class="loading loading-spinner hidden loading-sm"></span>
                     </button>
                   </div>
@@ -209,54 +328,54 @@
   </div>
 
   <!-- MODAL TAMBAH PENGGUNA -->
-  <dialog id="user_modal" class="modal">
-    <div class="modal-box">
-      <h3 class="font-bold text-lg">Tambah Pengguna Baru</h3>
-      <form id="addUserForm" class="py-4 space-y-4">
+  <dialog id="user_modal" class="modal modal-bottom sm:modal-middle">
+    <div class="modal-box rounded-2xl shadow-2xl">
+      <h3 class="font-bold text-xl mb-4 text-base-content border-b border-base-200 pb-2">Registrasi Pengguna Baru</h3>
+      <form id="addUserForm" class="py-2 space-y-4">
         <div class="form-control">
-          <label class="label"><span class="label-text">Nama Lengkap</span></label>
-          <input type="text" id="inputName" class="input input-bordered w-full" required />
+          <label class="label pb-1"><span class="label-text font-semibold">Nama Lengkap</span></label>
+          <input type="text" id="inputName" class="input input-bordered w-full rounded-xl focus:border-primary" required />
         </div>
         <div class="form-control">
-          <label class="label"><span class="label-text">Email</span></label>
-          <input type="email" id="inputEmail" class="input input-bordered w-full" required />
+          <label class="label pb-1"><span class="label-text font-semibold">Alamat Email</span></label>
+          <input type="email" id="inputEmail" class="input input-bordered w-full rounded-xl focus:border-primary" required />
         </div>
         <div class="form-control">
-          <label class="label"><span class="label-text">Peran</span></label>
-          <select id="inputRole" class="select select-bordered w-full">
-            <option value="user">User</option>
-            <option value="admin">Admin</option>
+          <label class="label pb-1"><span class="label-text font-semibold">Hak Akses (Peran)</span></label>
+          <select id="inputRole" class="select select-bordered w-full rounded-xl focus:border-primary">
+            <option value="user">User Biasa</option>
+            <option value="admin">Administrator</option>
           </select>
         </div>
-        <div class="modal-action">
-          <button type="button" class="btn" onclick="document.getElementById('user_modal').close()">Batal</button>
-          <button type="submit" class="btn btn-primary" id="btnSaveUser">Simpan</button>
+        <div class="modal-action mt-6 pt-4 border-t border-base-200">
+          <button type="button" class="btn btn-ghost rounded-xl" onclick="document.getElementById('user_modal').close()">Batal</button>
+          <button type="submit" class="btn btn-primary rounded-xl px-8" id="btnSaveUser">Simpan Entri</button>
         </div>
       </form>
     </div>
-    <form method="dialog" class="modal-backdrop"><button>close</button></form>
+    <form method="dialog" class="modal-backdrop bg-black/40 backdrop-blur-sm"><button>close</button></form>
   </dialog>
 
   <!-- MODAL TAMBAH DOKUMEN -->
-  <dialog id="doc_modal" class="modal">
-    <div class="modal-box">
-      <h3 class="font-bold text-lg">Tambah Dokumen</h3>
-      <form id="addDocForm" class="py-4 space-y-4">
+  <dialog id="doc_modal" class="modal modal-bottom sm:modal-middle">
+    <div class="modal-box rounded-2xl shadow-2xl">
+      <h3 class="font-bold text-xl mb-4 text-base-content border-b border-base-200 pb-2">Unggah Dokumen Baru</h3>
+      <form id="addDocForm" class="py-2 space-y-4">
         <div class="form-control">
-          <label class="label"><span class="label-text">Judul</span></label>
-          <input type="text" id="inputDocJudul" class="input input-bordered w-full" required />
+          <label class="label pb-1"><span class="label-text font-semibold">Judul Referensi</span></label>
+          <input type="text" id="inputDocJudul" class="input input-bordered w-full rounded-xl focus:border-primary" required />
         </div>
         <div class="form-control">
-          <label class="label"><span class="label-text">Deskripsi</span></label>
-          <textarea id="inputDocDeskripsi" class="textarea textarea-bordered w-full"></textarea>
+          <label class="label pb-1"><span class="label-text font-semibold">Deskripsi Singkat / Konten</span></label>
+          <textarea id="inputDocDeskripsi" class="textarea textarea-bordered w-full rounded-xl h-24 focus:border-primary"></textarea>
         </div>
-        <div class="modal-action">
-          <button type="button" class="btn" onclick="document.getElementById('doc_modal').close()">Batal</button>
-          <button type="submit" class="btn btn-primary" id="btnSaveDoc">Simpan</button>
+        <div class="modal-action mt-6 pt-4 border-t border-base-200">
+          <button type="button" class="btn btn-ghost rounded-xl" onclick="document.getElementById('doc_modal').close()">Batal</button>
+          <button type="submit" class="btn btn-primary rounded-xl px-8" id="btnSaveDoc">Simpan ke Server</button>
         </div>
       </form>
     </div>
-    <form method="dialog" class="modal-backdrop"><button>close</button></form>
+    <form method="dialog" class="modal-backdrop bg-black/40 backdrop-blur-sm"><button>close</button></form>
   </dialog>
 
   <!-- SINGLE ENTRY POINT UNTUK VITE -->
