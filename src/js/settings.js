@@ -23,22 +23,7 @@ export function setupSettingsEvents() {
   if(isSettingsEventAttached) return;
   isSettingsEventAttached = true;
   
-  // Tema Logic
-  const themeToggle = document.getElementById('themeToggle');
-  const htmlElement = document.documentElement;
-  
-  // Baca theme awal dari localStorage
-  const savedTheme = localStorage.getItem('app_theme') || 'light';
-  htmlElement.setAttribute('data-theme', savedTheme);
-  if(themeToggle) {
-    themeToggle.checked = (savedTheme === 'dark');
-    
-    themeToggle.addEventListener('change', (e) => {
-      const newTheme = e.target.checked ? 'dark' : 'light';
-      htmlElement.setAttribute('data-theme', newTheme);
-      localStorage.setItem('app_theme', newTheme);
-    });
-  }
+  // Tema dihapus karena hardcoded dark mode (MD3 style)
 
   // Profile Form Logic
   const profileForm = document.getElementById('profileForm');
@@ -83,8 +68,7 @@ export function setupSettingsEvents() {
   }
 }
 
-// Inisialisasi tema global (dipanggil di awal main.js)
+// Inisialisasi tema global (dihapus/tidak perlu lagi karena hardcoded)
 export function initGlobalTheme() {
-  const savedTheme = localStorage.getItem('app_theme') || 'light';
-  document.documentElement.setAttribute('data-theme', savedTheme);
+  document.documentElement.classList.add('dark');
 }
