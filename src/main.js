@@ -1,8 +1,12 @@
 import './style.css'
 import Chart from 'chart.js/auto';
+import { requireAuth } from './js/auth.js';
 
 // Logika interaktivitas dasar
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  // Panggil penjaga rute (Route Guard)
+  await requireAuth();
+
   const sidebarToggle = document.getElementById('sidebarToggle');
   const sidebar = document.getElementById('sidebar');
   const closeSidebar = document.getElementById('closeSidebar');

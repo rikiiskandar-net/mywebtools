@@ -1,10 +1,14 @@
 import '../style.css';
 import { supabase } from './supabaseClient';
+import { requireAuth } from './auth.js';
 
 // KOMENTAR ALUR DATA:
 // [Aksi User: Buka Halaman] -> [fetchUsers()] -> [Supabase API: select] -> [Database] -> [Render ke Tabel]
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  // Panggil penjaga rute (Route Guard)
+  await requireAuth();
+
   // --- Sidebar Logic (Modular Component Reuse) ---
   const sidebarToggle = document.getElementById('sidebarToggle');
   const sidebar = document.getElementById('sidebar');
