@@ -1,53 +1,43 @@
-import './style.css'
-import Chart from 'chart.js/auto';
-import { requireAuth } from './js/auth.js';
+import './style.css';
+import { setupRouter } from './js/router';
+import { initAuthFlow } from './js/auth';
+import { setupUsersEvents } from './js/users';
+import { setupDocsEvents } from './js/documents';
 
-// Logika interaktivitas dasar
-document.addEventListener('DOMContentLoaded', async () => {
-  // Panggil penjaga rute (Route Guard)
-  await requireAuth();
-
+// Entry Point SPA Murni
+document.addEventListener('DOMContentLoaded', () => {
+  // 1. Pasang Event Listeners Statis (Form Submit, Logout, dll) hanya SEKALI
+  initAuthFlow();
+  setupUsersEvents();
+  setupDocsEvents();
+  
+  // 2. Setup Logika UI Sidebar Dinamis
   const sidebarToggle = document.getElementById('sidebarToggle');
   const sidebar = document.getElementById('sidebar');
   const closeSidebar = document.getElementById('closeSidebar');
   const sidebarOverlay = document.getElementById('sidebarOverlay');
   
   function toggleSidebar() {
+    if(!sidebar) return;
     sidebar.classList.toggle('hidden');
-    sidebarOverlay.classList.toggle('hidden');
+    if(sidebarOverlay) sidebarOverlay.classList.toggle('hidden');
   }
 
-  if (sidebarToggle && sidebar) {
-    sidebarToggle.addEventListener('click', toggleSidebar);
-    if (closeSidebar) closeSidebar.addEventListener('click', toggleSidebar);
-    if (sidebarOverlay) sidebarOverlay.addEventListener('click', toggleSidebar);
-  }
-
-  // Inisialisasi Chart
-  const ctx = document.getElementById('mainChart');
-  if (ctx) {
-    new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul'],
-        datasets: [{
-          label: 'Kunjungan',
-          data: [65, 59, 80, 81, 56, 55, 90],
-          fill: true,
-          borderColor: 'rgb(75, 192, 192)',
-          tension: 0.4
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            display: false
-          }
-        }
+  if (sidebarToggle) sidebarToggle.addEventListener('click', toggleSidebar);
+  if (closeSidebar) closeSidebar.addEventListener('click', toggleSidebar);
+  if (sidebarOverlay) sidebarOverlay.addEventListener('click', toggleSidebar);
+  
+  // Tutup sidebar saat klik menu di layar kecil (mobile UX)
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      if(window.innerWidth < 768 && sidebar) {
+        sidebar.classList.add('hidden');
+        if(sidebarOverlay) sidebarOverlay.classList.add('hidden');
       }
     });
-  }
+  });
 
-  console.log("Admin Dashboard Initialized");
+  // 3. Nyalakan Mesin Router Utama
+  // Ini akan menentukan halaman mana yang muncul pertama kali dan mencegat pengguna tak dikenal
+  setupRouter();
 });

@@ -3,167 +3,217 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Admin Dashboard</title>
+  <title>Admin Dashboard SPA</title>
 </head>
 <body class="bg-base-200 text-base-content font-sans">
-  <div id="app" class="flex h-screen overflow-hidden">
+  <div id="app" class="relative">
     
-    <!-- Sidebar -->
-    <aside id="sidebar" class="w-64 bg-base-100 flex flex-col hidden md:flex border-r border-base-300 absolute md:relative z-20 h-full shadow-lg md:shadow-none">
-      <div class="p-4 border-b border-base-300 flex items-center justify-between">
-        <h1 class="text-xl font-bold text-primary">AdminPanel</h1>
-        <button id="closeSidebar" class="btn btn-sm btn-ghost md:hidden">✕</button>
-      </div>
-      <nav class="flex-1 overflow-y-auto p-4 space-y-2">
-        <a href="index.html" class="flex items-center gap-3 p-3 rounded-lg bg-primary text-primary-content font-medium">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
-          Dashboard
-        </a>
-        <a href="users.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-base-200 transition-colors">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
-          Pengguna
-        </a>
-      </nav>
-    </aside>
-
-    <!-- Overlay untuk Sidebar di Mobile -->
-    <div id="sidebarOverlay" class="fixed inset-0 bg-black/50 z-10 hidden md:hidden"></div>
-
-    <!-- Main Content -->
-    <div class="flex-1 flex flex-col relative overflow-hidden">
-      
-      <!-- Topbar -->
-      <header class="h-16 bg-base-100 flex items-center justify-between px-4 lg:px-8 border-b border-base-300">
-        <button id="sidebarToggle" class="btn btn-square btn-ghost md:hidden">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-        </button>
-        
-        <div class="flex-1 flex justify-end gap-2">
-          <!-- Theme Controller (Light/Dark mode) -->
-          <label class="swap swap-rotate btn btn-ghost btn-circle">
-            <input type="checkbox" class="theme-controller" value="dark" />
-            <svg class="swap-off fill-current w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5.64,17l-.71.71a1,1,0,0,0,0,1.41,1,1,0,0,0,1.41,0l.71-.71A1,1,0,0,0,5.64,17ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm7-7a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4A1,1,0,0,0,12,5ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,4.93,6.34Zm12,.29a1,1,0,0,0,.7-.29l.71-.71a1,1,0,1,0-1.41-1.41L17,5.64a1,1,0,0,0,0,1.41A1,1,0,0,0,17.66,7.34ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-9,8a1,1,0,0,0-1,1v1a1,1,0,0,0,2,0V20A1,1,0,0,0,12,19ZM18.36,17A1,1,0,0,0,17,18.36l.71.71a1,1,0,0,0,1.41,0,1,1,0,0,0,0-1.41ZM12,6.5A5.5,5.5,0,1,0,17.5,12,5.51,5.51,0,0,0,12,6.5Zm0,9A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z"/></svg>
-            <svg class="swap-on fill-current w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z"/></svg>
-          </label>
-          
-          <!-- User Profile Dropdown -->
-          <div class="dropdown dropdown-end">
-            <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
-              <div class="w-10 rounded-full">
-                <img alt="User avatar" src="https://ui-avatars.com/api/?name=Admin+User&background=2563EB&color=fff" />
-              </div>
-            </div>
-            <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-              <li><a class="justify-between">Profile <span class="badge">New</span></a></li>
-              <li><a>Settings</a></li>
-              <li><a onclick="window.logoutUser()">Logout</a></li>
-            </ul>
+    <!-- ==================== VIEW LOGIN ==================== -->
+    <section id="view-login" class="hidden min-h-screen flex items-center justify-center p-4 z-50 absolute inset-0 bg-base-200">
+      <div class="card w-full max-w-sm shadow-2xl bg-base-100 border border-base-300">
+        <div class="card-body">
+          <div class="text-center mb-6">
+            <h1 class="text-2xl font-bold text-primary">AdminPanel</h1>
+            <p class="text-sm text-base-content/70 mt-1">Silakan masuk ke akun Anda</p>
           </div>
+          <div id="loginAlert" class="alert alert-error shadow-sm hidden mb-4 py-2 text-sm">
+            <span id="loginAlertMessage"></span>
+          </div>
+          <form id="loginForm" class="space-y-4">
+            <div class="form-control">
+              <label class="label"><span class="label-text">Email</span></label>
+              <input type="email" id="emailInput" placeholder="admin@example.com" class="input input-bordered w-full" required />
+            </div>
+            <div class="form-control">
+              <label class="label"><span class="label-text">Password</span></label>
+              <input type="password" id="passwordInput" placeholder="••••••••" class="input input-bordered w-full" required />
+            </div>
+            <div class="form-control mt-6">
+              <button type="submit" id="loginBtn" class="btn btn-primary w-full">
+                Masuk
+                <span id="loginSpinner" class="loading loading-spinner hidden"></span>
+              </button>
+            </div>
+          </form>
         </div>
-      </header>
+      </div>
+    </section>
+    
+    <!-- ==================== VIEW UTAMA (APP) ==================== -->
+    <section id="view-main" class="hidden flex h-screen overflow-hidden">
+      <!-- Sidebar -->
+      <aside id="sidebar" class="w-64 bg-base-100 flex flex-col hidden md:flex border-r border-base-300 absolute md:relative z-20 h-full shadow-lg md:shadow-none transition-all duration-300">
+        <div class="p-4 border-b border-base-300 flex items-center justify-between">
+          <h1 class="text-xl font-bold text-primary">AdminPanel</h1>
+          <button id="closeSidebar" class="btn btn-sm btn-ghost md:hidden">✕</button>
+        </div>
+        <nav class="flex-1 overflow-y-auto p-4 space-y-2">
+          <a href="#dashboard" class="nav-link flex items-center gap-3 p-3 rounded-lg hover:bg-base-200 transition-colors bg-primary text-primary-content">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
+            Dasbor Dokumen
+          </a>
+          <a href="#users" class="nav-link flex items-center gap-3 p-3 rounded-lg hover:bg-base-200 transition-colors text-base-content">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+            Pengguna
+          </a>
+        </nav>
+      </aside>
 
-      <!-- Main Scrollable Content -->
-      <main class="flex-1 overflow-x-hidden overflow-y-auto bg-base-200 p-4 lg:p-8">
-        <div class="max-w-7xl mx-auto space-y-6">
-          <div class="flex items-center justify-between">
-            <h2 class="text-2xl font-bold">Ringkasan</h2>
-          </div>
-          
-          <!-- Stat Cards -->
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="stat bg-base-100 shadow rounded-box">
-              <div class="stat-figure text-primary">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
-              </div>
-              <div class="stat-title">Total Kunjungan</div>
-              <div class="stat-value text-primary">25.6K</div>
-              <div class="stat-desc">21% lebih tinggi dari bulan lalu</div>
-            </div>
-            
-            <div class="stat bg-base-100 shadow rounded-box">
-              <div class="stat-figure text-secondary">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-              </div>
-              <div class="stat-title">Pendaftaran Baru</div>
-              <div class="stat-value text-secondary">2.6M</div>
-              <div class="stat-desc">21% lebih tinggi dari bulan lalu</div>
-            </div>
-            
-            <div class="stat bg-base-100 shadow rounded-box">
-              <div class="stat-figure text-secondary">
-                <div class="avatar online">
-                  <div class="w-16 rounded-full">
-                    <img src="https://ui-avatars.com/api/?name=Admin&background=random" />
-                  </div>
+      <!-- Overlay untuk Sidebar di Mobile -->
+      <div id="sidebarOverlay" class="fixed inset-0 bg-black/50 z-10 hidden md:hidden"></div>
+
+      <!-- Main Content Area -->
+      <div class="flex-1 flex flex-col relative overflow-hidden">
+        <!-- Topbar -->
+        <header class="h-16 bg-base-100 flex items-center justify-between px-4 lg:px-8 border-b border-base-300">
+          <button id="sidebarToggle" class="btn btn-square btn-ghost md:hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+          </button>
+          <div class="flex-1 flex justify-end gap-2">
+            <!-- Theme Controller -->
+            <label class="swap swap-rotate btn btn-ghost btn-circle">
+              <input type="checkbox" class="theme-controller" value="dark" />
+              <svg class="swap-off fill-current w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5.64,17l-.71.71a1,1,0,0,0,0,1.41,1,1,0,0,0,1.41,0l.71-.71A1,1,0,0,0,5.64,17ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm7-7a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4A1,1,0,0,0,12,5ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,4.93,6.34Zm12,.29a1,1,0,0,0,.7-.29l.71-.71a1,1,0,1,0-1.41-1.41L17,5.64a1,1,0,0,0,0,1.41A1,1,0,0,0,17.66,7.34ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-9,8a1,1,0,0,0-1,1v1a1,1,0,0,0,2,0V20A1,1,0,0,0,12,19ZM18.36,17A1,1,0,0,0,17,18.36l.71.71a1,1,0,0,0,1.41,0,1,1,0,0,0,0-1.41ZM12,6.5A5.5,5.5,0,1,0,17.5,12,5.51,5.51,0,0,0,12,6.5Zm0,9A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z"/></svg>
+              <svg class="swap-on fill-current w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z"/></svg>
+            </label>
+            <div class="dropdown dropdown-end">
+              <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+                <div class="w-10 rounded-full">
+                  <img alt="User avatar" src="https://ui-avatars.com/api/?name=Admin+User&background=2563EB&color=fff" />
                 </div>
               </div>
-              <div class="stat-value">86%</div>
-              <div class="stat-title">Tugas Selesai</div>
-              <div class="stat-desc text-secondary">Sisa 3 tugas</div>
-            </div>
-          </div>
-          
-          <!-- Chart and Table Section -->
-          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
-            <!-- Chart -->
-            <div class="lg:col-span-2 bg-base-100 shadow rounded-box p-6">
-              <h3 class="font-bold text-lg mb-4">Statistik Kunjungan</h3>
-              <canvas id="mainChart" height="100"></canvas>
-            </div>
-            
-            <!-- Recent Activity -->
-            <div class="bg-base-100 shadow rounded-box p-6">
-              <h3 class="font-bold text-lg mb-4">Aktivitas Terbaru</h3>
-              <ul class="steps steps-vertical">
-                <li class="step step-primary">Admin login <span class="text-xs text-base-content/60 ml-2">5 min ago</span></li>
-                <li class="step step-primary">User B mendaftar <span class="text-xs text-base-content/60 ml-2">1 jam lalu</span></li>
-                <li class="step">Pembayaran sukses <span class="text-xs text-base-content/60 ml-2">2 jam lalu</span></li>
-                <li class="step">Sistem update <span class="text-xs text-base-content/60 ml-2">Kemarin</span></li>
+              <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                <li><a id="btnGlobalLogout" class="text-error font-semibold">Logout</a></li>
               </ul>
             </div>
           </div>
+        </header>
 
-          <!-- Data Table -->
-          <div class="bg-base-100 shadow rounded-box p-6 mt-6">
-            <h3 class="font-bold text-lg mb-4">Transaksi Terakhir</h3>
-            <div class="overflow-x-auto">
-              <table class="table table-zebra w-full">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Nama</th>
-                    <th>Status</th>
-                    <th>Tanggal</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th>1</th>
-                    <td>Cy Ganderton</td>
-                    <td><div class="badge badge-success">Sukses</div></td>
-                    <td>19 Jul 2026</td>
-                  </tr>
-                  <tr>
-                    <th>2</th>
-                    <td>Hart Hagerty</td>
-                    <td><div class="badge badge-warning">Pending</div></td>
-                    <td>19 Jul 2026</td>
-                  </tr>
-                  <tr>
-                    <th>3</th>
-                    <td>Brice Swyre</td>
-                    <td><div class="badge badge-error">Gagal</div></td>
-                    <td>18 Jul 2026</td>
-                  </tr>
-                </tbody>
-              </table>
+        <!-- Main Scrollable Content -->
+        <main class="flex-1 overflow-x-hidden overflow-y-auto bg-base-200 p-4 lg:p-8">
+          
+          <!-- === HALAMAN DASBOR DOKUMEN === -->
+          <div id="page-dashboard" class="page-view hidden space-y-6 max-w-7xl mx-auto">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <h2 class="text-2xl font-bold">Dasbor Dokumen</h2>
+              <button class="btn btn-primary" onclick="document.getElementById('doc_modal').showModal()">+ Tambah Dokumen</button>
+            </div>
+
+            <!-- Stats -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div class="stat bg-base-100 shadow rounded-box">
+                <div class="stat-figure text-primary">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                </div>
+                <div class="stat-title">Total Dokumen</div>
+                <div class="stat-value text-primary" id="statTotalDoc">0</div>
+              </div>
+            </div>
+
+            <!-- Table Dokumen -->
+            <div class="bg-base-100 shadow rounded-box p-6">
+              <div class="overflow-x-auto">
+                <table class="table w-full">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Judul Dokumen</th>
+                      <th>Deskripsi</th>
+                      <th>Tanggal Dibuat</th>
+                    </tr>
+                  </thead>
+                  <tbody id="docsTableBody">
+                     <tr><td colspan="4" class="text-center py-4"><span class="loading loading-spinner"></span></td></tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
-          
-        </div>
-      </main>
-    </div>
+
+          <!-- === HALAMAN PENGGUNA === -->
+          <div id="page-users" class="page-view hidden space-y-6 max-w-7xl mx-auto">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <h2 class="text-2xl font-bold">Manajemen Pengguna</h2>
+              <button class="btn btn-primary" onclick="document.getElementById('user_modal').showModal()">+ Tambah Pengguna</button>
+            </div>
+
+            <div class="bg-base-100 shadow rounded-box p-6">
+              <div class="overflow-x-auto">
+                <table class="table w-full">
+                  <thead>
+                    <tr>
+                      <th>Nama Lengkap</th>
+                      <th>Email</th>
+                      <th>Peran</th>
+                      <th>Status</th>
+                      <th>Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody id="usersTableBody">
+                    <tr><td colspan="5" class="text-center py-4"><span class="loading loading-spinner"></span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </main>
+      </div>
+    </section>
   </div>
+
+  <!-- MODAL TAMBAH PENGGUNA -->
+  <dialog id="user_modal" class="modal">
+    <div class="modal-box">
+      <h3 class="font-bold text-lg">Tambah Pengguna Baru</h3>
+      <form id="addUserForm" class="py-4 space-y-4">
+        <div class="form-control">
+          <label class="label"><span class="label-text">Nama Lengkap</span></label>
+          <input type="text" id="inputName" class="input input-bordered w-full" required />
+        </div>
+        <div class="form-control">
+          <label class="label"><span class="label-text">Email</span></label>
+          <input type="email" id="inputEmail" class="input input-bordered w-full" required />
+        </div>
+        <div class="form-control">
+          <label class="label"><span class="label-text">Peran</span></label>
+          <select id="inputRole" class="select select-bordered w-full">
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+        <div class="modal-action">
+          <button type="button" class="btn" onclick="document.getElementById('user_modal').close()">Batal</button>
+          <button type="submit" class="btn btn-primary" id="btnSaveUser">Simpan</button>
+        </div>
+      </form>
+    </div>
+    <form method="dialog" class="modal-backdrop"><button>close</button></form>
+  </dialog>
+
+  <!-- MODAL TAMBAH DOKUMEN -->
+  <dialog id="doc_modal" class="modal">
+    <div class="modal-box">
+      <h3 class="font-bold text-lg">Tambah Dokumen</h3>
+      <form id="addDocForm" class="py-4 space-y-4">
+        <div class="form-control">
+          <label class="label"><span class="label-text">Judul</span></label>
+          <input type="text" id="inputDocJudul" class="input input-bordered w-full" required />
+        </div>
+        <div class="form-control">
+          <label class="label"><span class="label-text">Deskripsi</span></label>
+          <textarea id="inputDocDeskripsi" class="textarea textarea-bordered w-full"></textarea>
+        </div>
+        <div class="modal-action">
+          <button type="button" class="btn" onclick="document.getElementById('doc_modal').close()">Batal</button>
+          <button type="submit" class="btn btn-primary" id="btnSaveDoc">Simpan</button>
+        </div>
+      </form>
+    </div>
+    <form method="dialog" class="modal-backdrop"><button>close</button></form>
+  </dialog>
+
+  <!-- SINGLE ENTRY POINT UNTUK VITE -->
   <script type="module" src="/src/main.js"></script>
 </body>
 </html>
