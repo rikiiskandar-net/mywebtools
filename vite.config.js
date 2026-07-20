@@ -9,7 +9,7 @@ function cleanUrlPlugin() {
     configureServer(server) {
       server.middlewares.use((req, res, next) => {
         // If it's a known page without extension (except root), route it internally to /pages/...html
-        const pages = ['/login', '/register', '/dashboard', '/users', '/settings', '/roadmap'];
+        const pages = ['/login', '/register', '/dashboard', '/users', '/settings', '/roadmap', '/tools', '/tools/password-generator'];
         const urlWithoutQuery = req.url.split('?')[0];
         if (pages.includes(urlWithoutQuery)) {
           req.url = req.url.replace(urlWithoutQuery, '/pages' + urlWithoutQuery + '.html');
@@ -34,7 +34,9 @@ export default defineConfig({
         dashboard: resolve(__dirname, 'pages/dashboard.html'),
         users: resolve(__dirname, 'pages/users.html'),
         settings: resolve(__dirname, 'pages/settings.html'),
-        roadmap: resolve(__dirname, 'pages/roadmap.html')
+        roadmap: resolve(__dirname, 'pages/roadmap.html'),
+        tools: resolve(__dirname, 'pages/tools.html'),
+        password_generator: resolve(__dirname, 'pages/tools/password-generator.html')
       }
     }
   }

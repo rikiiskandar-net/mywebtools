@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Beranda Dokumen - Admin Panel</title>
+  <title>Alat & Utilitas - Admin Panel</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
@@ -96,61 +96,41 @@
 
       <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 z-20 hidden md:hidden"></div>
 
-      <!-- Main Content -->
       <main id="mainContent" class="flex-1 overflow-y-auto w-full relative transition-opacity duration-200 ease-in-out opacity-0">
-        <div class="px-4 sm:px-8 py-8 md:py-12 max-w-4xl mx-auto space-y-8">
+        <div class="px-4 sm:px-8 py-8 md:py-12 max-w-5xl mx-auto space-y-8">
           <!-- Welcome Section -->
           <div class="text-center mb-10">
-            <h2 class="text-3xl md:text-[36px] font-normal brand-font text-zinc-100 mb-4">Beranda Dokumen</h2>
-            <p class="text-zinc-400 text-base max-w-xl mx-auto">Kelola dokumen Anda agar Anda dapat terhubung dengan data di layanan, seperti Google Workspace.</p>
+            <h2 class="text-3xl md:text-[36px] font-normal brand-font text-zinc-100 mb-4">Alat & Utilitas</h2>
+            <p class="text-zinc-400 text-base max-w-xl mx-auto">Kumpulan alat bantu untuk mempermudah pekerjaan harian Anda.</p>
           </div>
 
-          <div class="bg-zinc-800 rounded-[24px] overflow-hidden border border-zinc-700/50 shadow-sm">
-            <div class="p-6 border-b border-zinc-700 flex justify-between items-start">
-              <div>
-                <h3 class="text-xl font-normal brand-font text-zinc-100">Dokumen</h3>
-                <p class="text-zinc-400 text-sm mt-1" id="statTotalDocText">Mengambil data...</p>
+          <!-- Tools Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+            
+            <!-- Password Generator Card -->
+            <a href="/tools/password-generator" class="bg-zinc-800 hover:bg-zinc-700/80 transition-all duration-300 rounded-[24px] overflow-hidden border border-zinc-700/50 shadow-sm flex flex-col items-center justify-center p-8 group">
+              <div class="w-20 h-20 rounded-full bg-zinc-700/50 group-hover:bg-zinc-600 transition-colors flex items-center justify-center mb-4">
+                <i data-lucide="key-round" class="w-10 h-10 text-zinc-300 group-hover:text-blue-400 transition-colors"></i>
               </div>
-              <button onclick="document.getElementById('doc_modal').classList.remove('hidden')" class="text-blue-400 hover:bg-blue-400/10 px-4 py-2 rounded-full font-medium text-sm transition-colors flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
-                Tambah Baru
-              </button>
-            </div>
-            <div id="docsTableBody" class="divide-y divide-zinc-700">
-              <div class="p-6 text-center text-zinc-400 flex flex-col items-center">
-                <span class="w-6 h-6 border-2 border-zinc-500 border-t-transparent rounded-full animate-spin mb-2"></span>
-                Memuat data...
+              <h3 class="text-lg font-medium brand-font text-zinc-100 text-center">Password Generator</h3>
+            </a>
+
+            <!-- Placeholder for future tools -->
+            <!--
+            <a href="#" class="bg-zinc-800/50 hover:bg-zinc-700/50 transition-all duration-300 rounded-[24px] overflow-hidden border border-zinc-700/30 shadow-sm flex flex-col items-center justify-center p-8 group border-dashed opacity-50 cursor-not-allowed">
+              <div class="w-20 h-20 rounded-full bg-zinc-700/30 flex items-center justify-center mb-4">
+                <i data-lucide="plus" class="w-10 h-10 text-zinc-500"></i>
               </div>
-            </div>
+              <h3 class="text-lg font-medium brand-font text-zinc-400 text-center">Segera Hadir</h3>
+            </a>
+            -->
+
           </div>
         </div>
       </main>
     </div>
   </div>
 
-  <!-- MODAL TAMBAH DOKUMEN -->
-  <div id="doc_modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4">
-    <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="document.getElementById('doc_modal').classList.add('hidden')"></div>
-    <div class="bg-zinc-800 rounded-[28px] w-full max-w-md shadow-2xl relative z-10 overflow-hidden border border-zinc-700">
-      <div class="p-6">
-        <h3 class="text-2xl font-normal brand-font text-zinc-100 mb-6">Unggah Dokumen</h3>
-        <form id="addDocForm" class="space-y-6">
-          <div class="relative">
-            <input type="text" id="inputDocJudul" class="block px-4 pb-2.5 pt-4 w-full text-zinc-100 bg-transparent rounded-md border border-zinc-500 appearance-none focus:outline-none focus:ring-0 focus:border-blue-400 peer" placeholder=" " required />
-            <label class="absolute text-zinc-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-zinc-800 px-2 peer-focus:px-2 peer-focus:text-blue-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-2">Judul Dokumen</label>
-          </div>
-          <div class="relative">
-            <textarea id="inputDocDeskripsi" class="block px-4 py-3 w-full text-zinc-100 bg-transparent rounded-md border border-zinc-500 focus:outline-none focus:ring-0 focus:border-blue-400 peer h-24 resize-none" placeholder="Deskripsi ringkas..." required></textarea>
-          </div>
-          <div class="flex justify-end gap-2 pt-4">
-            <button type="button" class="px-6 py-2 rounded-full text-blue-400 font-medium hover:bg-blue-400/10 transition-colors" onclick="document.getElementById('doc_modal').classList.add('hidden')">Batal</button>
-            <button type="submit" id="btnSaveDoc" class="px-6 py-2 rounded-full bg-blue-400 text-zinc-900 font-medium hover:bg-blue-300 transition-colors">Buat Dokumen</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <script type="module" src="/src/js/pages/dashboard.js"></script>
+  <script type="module" src="/src/js/tools.js"></script>
 </body>
 </html>
