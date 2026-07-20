@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beranda Dokumen - Admin Panel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Roboto', sans-serif; }
+    h1, h2, h3, h4, h5, .brand-font { font-family: 'Google Sans', sans-serif; }
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #52525b; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #71717a; }
+  </style>
+</head>
+<body class="bg-zinc-900 text-zinc-100 antialiased h-screen overflow-hidden flex flex-col selection:bg-blue-900 selection:text-blue-200">
+  <div id="app" class="flex-1 flex flex-col h-full relative">
+    
+    <!-- Top Navbar MD3 -->
+    <header class="h-16 shrink-0 flex items-center justify-between px-2 sm:px-6 border-b border-zinc-800 bg-zinc-900 relative z-20">
+      <div class="flex items-center gap-1 sm:gap-4 w-1/4">
+        <button id="sidebarToggle" class="p-2 sm:p-3 text-zinc-400 hover:bg-zinc-800 rounded-full transition-colors md:hidden">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+        </button>
+        <div class="flex items-center gap-2 px-2">
+          <h1 class="text-xl sm:text-2xl font-normal brand-font text-zinc-100 hidden sm:block">Admin<span class="text-zinc-400">Panel</span></h1>
+        </div>
+      </div>
+
+      <div class="flex-1 max-w-2xl px-2">
+        <div class="bg-zinc-800 hover:bg-zinc-700 transition-colors rounded-full flex items-center px-4 py-2 sm:py-3 w-full">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-zinc-400 mr-3 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+          <input type="text" placeholder="Telusuri data..." class="bg-transparent border-none outline-none text-zinc-100 w-full placeholder-zinc-400 text-sm sm:text-base" />
+        </div>
+      </div>
+
+      <div class="flex items-center justify-end gap-2 w-1/4">
+        <div class="relative">
+          <button id="profileDropdownBtn" class="p-1 sm:p-1.5 hover:bg-zinc-800 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-zinc-700">
+            <img id="headerUserAvatar" class="w-8 h-8 sm:w-9 sm:h-9 rounded-full ring-1 ring-zinc-700" src="https://ui-avatars.com/api/?name=User&background=1e1e1e&color=fff" alt="Profile" />
+          </button>
+          <div id="profileDropdownMenu" class="hidden absolute right-0 mt-2 w-72 bg-zinc-800 border border-zinc-700 shadow-2xl rounded-3xl overflow-hidden py-2 z-50">
+            <div class="px-6 py-4 border-b border-zinc-700 text-center">
+              <img id="headerUserAvatarLarge" class="w-16 h-16 rounded-full mx-auto mb-3" src="https://ui-avatars.com/api/?name=User&background=1e1e1e&color=fff" alt="Profile" />
+              <span id="headerUserName" class="block font-medium brand-font text-zinc-100 text-lg">Memuat...</span>
+              <span class="block text-sm text-zinc-400 mt-1">Memuat...</span>
+            </div>
+            <div class="p-2">
+              <a href="/settings.html" class="flex items-center gap-3 px-4 py-3 hover:bg-zinc-700/50 rounded-full transition-colors text-zinc-300 mx-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                Kelola Akun Anda
+              </a>
+            </div>
+            <div class="border-t border-zinc-700 p-2 mt-2">
+              <button id="btnGlobalLogout" class="w-full flex items-center justify-center gap-2 px-4 py-3 hover:bg-zinc-700/50 rounded-full transition-colors text-zinc-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
+                Logout
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="flex-1 flex overflow-hidden relative">
+      <!-- Sidebar Navigation -->
+      <aside id="sidebar" class="w-64 shrink-0 bg-zinc-900 absolute md:relative inset-y-0 left-0 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out z-30 pt-4 pb-20 overflow-y-auto border-r border-zinc-800">
+        <div class="px-3 md:hidden mb-4 border-b border-zinc-800 pb-4">
+          <h1 class="text-xl font-normal brand-font text-zinc-100 ml-4">Admin<span class="text-zinc-400">Panel</span></h1>
+        </div>
+        <nav class="flex flex-col gap-1 px-3">
+          <a href="/dashboard.html" class="nav-link flex items-center gap-4 px-4 py-3 rounded-full text-zinc-300 hover:bg-zinc-800 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
+            <span class="font-medium text-sm">Beranda</span>
+          </a>
+          <a href="/users.html" class="nav-link hidden flex-items-center gap-4 px-4 py-3 rounded-full text-zinc-300 hover:bg-zinc-800 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+            <span class="font-medium text-sm">Orang & berbagi</span>
+          </a>
+          <a href="/settings.html" class="nav-link flex items-center gap-4 px-4 py-3 rounded-full text-zinc-300 hover:bg-zinc-800 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+            <span class="font-medium text-sm">Info pribadi</span>
+          </a>
+        </nav>
+      </aside>
+
+      <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 z-20 hidden md:hidden"></div>
+
+      <!-- Main Content -->
+      <main class="flex-1 overflow-y-auto w-full relative">
+        <div class="px-4 sm:px-8 py-8 md:py-12 max-w-4xl mx-auto space-y-8">
+          <div class="text-center mb-10">
+            <h2 class="text-3xl md:text-[36px] font-normal brand-font text-zinc-100 mb-4">Beranda Dokumen</h2>
+            <p class="text-zinc-400 text-base max-w-xl mx-auto">Kelola dokumen Anda agar Anda dapat terhubung dengan data di layanan, seperti Google Workspace.</p>
+          </div>
+
+          <div class="bg-zinc-800 rounded-[24px] overflow-hidden border border-zinc-700/50 shadow-sm">
+            <div class="p-6 border-b border-zinc-700 flex justify-between items-start">
+              <div>
+                <h3 class="text-xl font-normal brand-font text-zinc-100">Dokumen</h3>
+                <p class="text-zinc-400 text-sm mt-1" id="statTotalDocText">Mengambil data...</p>
+              </div>
+              <button onclick="document.getElementById('doc_modal').classList.remove('hidden')" class="text-blue-400 hover:bg-blue-400/10 px-4 py-2 rounded-full font-medium text-sm transition-colors flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
+                Tambah Baru
+              </button>
+            </div>
+            <div id="docsTableBody" class="divide-y divide-zinc-700">
+              <div class="p-6 text-center text-zinc-400 flex flex-col items-center">
+                <span class="w-6 h-6 border-2 border-zinc-500 border-t-transparent rounded-full animate-spin mb-2"></span>
+                Memuat data...
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- MODAL TAMBAH DOKUMEN -->
+  <div id="doc_modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4">
+    <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="document.getElementById('doc_modal').classList.add('hidden')"></div>
+    <div class="bg-zinc-800 rounded-[28px] w-full max-w-md shadow-2xl relative z-10 overflow-hidden border border-zinc-700">
+      <div class="p-6">
+        <h3 class="text-2xl font-normal brand-font text-zinc-100 mb-6">Unggah Dokumen</h3>
+        <form id="addDocForm" class="space-y-6">
+          <div class="relative">
+            <input type="text" id="inputDocJudul" class="block px-4 pb-2.5 pt-4 w-full text-zinc-100 bg-transparent rounded-md border border-zinc-500 appearance-none focus:outline-none focus:ring-0 focus:border-blue-400 peer" placeholder=" " required />
+            <label class="absolute text-zinc-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-zinc-800 px-2 peer-focus:px-2 peer-focus:text-blue-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-2">Judul Dokumen</label>
+          </div>
+          <div class="relative">
+            <textarea id="inputDocDeskripsi" class="block px-4 py-3 w-full text-zinc-100 bg-transparent rounded-md border border-zinc-500 focus:outline-none focus:ring-0 focus:border-blue-400 peer h-24 resize-none" placeholder="Deskripsi ringkas..." required></textarea>
+          </div>
+          <div class="flex justify-end gap-2 pt-4">
+            <button type="button" class="px-6 py-2 rounded-full text-blue-400 font-medium hover:bg-blue-400/10 transition-colors" onclick="document.getElementById('doc_modal').classList.add('hidden')">Batal</button>
+            <button type="submit" id="btnSaveDoc" class="px-6 py-2 rounded-full bg-blue-400 text-zinc-900 font-medium hover:bg-blue-300 transition-colors">Buat Dokumen</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/js/pages/dashboard.js"></script>
+</body>
+</html>
