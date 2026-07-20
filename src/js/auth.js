@@ -1,8 +1,10 @@
 import { supabase } from './supabaseClient';
 
-// Mengekstrak role dari user metadata / app metadata
 export function getRole(user) {
-  return user?.app_metadata?.role || user?.user_metadata?.role || 'user';
+  // Hanya percayai app_metadata untuk role admin demi keamanan yang ketat.
+  // user_metadata bisa dimanipulasi user lewat API klien, app_metadata tidak.
+  if (user?.app_metadata?.role === 'admin') return 'admin';
+  return 'user';
 }
 
 // Mengecek status autentikasi
@@ -19,9 +21,10 @@ export async function checkSession() {
 export async function guardAuthenticated() {
   const { isAuthenticated } = await checkSession();
   if (!isAuthenticated) {
-    window.location.href = '/login.html';
+    window.location.replace('/login.html');
     return false;
   }
+  document.body.style.visibility = 'visible';
   return true;
 }
 
@@ -29,9 +32,10 @@ export async function guardAuthenticated() {
 export async function guardGuest() {
   const { isAuthenticated } = await checkSession();
   if (isAuthenticated) {
-    window.location.href = '/dashboard.html';
+    window.location.replace('/dashboard.html');
     return false;
   }
+  document.body.style.visibility = 'visible';
   return true;
 }
 
@@ -39,13 +43,14 @@ export async function guardGuest() {
 export async function guardAdmin() {
   const { isAuthenticated, role } = await checkSession();
   if (!isAuthenticated) {
-    window.location.href = '/login.html';
+    window.location.replace('/login.html');
     return false;
   }
   if (role !== 'admin') {
-    window.location.href = '/dashboard.html';
+    window.location.replace('/dashboard.html');
     return false;
   }
+  document.body.style.visibility = 'visible';
   return true;
 }
 
@@ -80,7 +85,8 @@ export function setupGlobalLogout() {
     btnGlobalLogout.addEventListener('click', async () => {
       try {
         await supabase.auth.signOut();
-        window.location.href = '/login.html';
+        // Paksa bersihkan state dan hindari tombol back
+        window.location.replace('/login.html');
       } catch(err) {
         alert("Gagal logout: " + err.message);
       }
