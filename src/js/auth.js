@@ -49,6 +49,16 @@ export function initAuthFlow() {
       }
     });
   }
+
+  // 3. Global Listener untuk mendeteksi token mati / log out jarak jauh
+  supabase.auth.onAuthStateChange((event, session) => {
+    if (event === 'SIGNED_OUT' || event === 'USER_DELETED') {
+      // Tendang ke halaman login secara paksa untuk menghindari White Screen
+      window.location.hash = '#login';
+      document.getElementById('view-login').classList.remove('hidden');
+      document.getElementById('view-main').classList.add('hidden');
+    }
+  });
 }
 
 // Fungsi bantu untuk mengubah nama dan avatar di Header
@@ -67,12 +77,13 @@ export function updateHeaderProfile(user) {
   }
 }
 
-// Hanya mengembalikan boolean status sesi, tapi sekalian update header
+// Mengembalikan objek status sesi beserta role (RBAC)
 export async function checkSession() {
   const { data: { session } } = await supabase.auth.getSession();
   if (session) {
     updateHeaderProfile(session.user);
-    return true;
+    const role = session.user.app_metadata?.role || 'user';
+    return { isAuthenticated: true, role };
   }
-  return false;
+  return { isAuthenticated: false, role: 'guest' };
 }

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roadmap Pengembangan - mywebtools</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Roboto', sans-serif; background-color: #18181b; color: #f4f4f5; }
+    h1, h2, h3, h4, .brand-font { font-family: 'Google Sans', sans-serif; }
+  </style>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            zinc: { 800: '#27272a', 900: '#18181b' }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="p-8 md:p-16 max-w-4xl mx-auto selection:bg-blue-900 selection:text-blue-200">
+  
+  <header class="mb-12 text-center">
+    <h1 class="text-4xl brand-font font-normal mb-3">Peta Jalan (Roadmap) Proyek</h1>
+    <p class="text-zinc-400">Dokumen teknis arsitektur, flow, dan logika keamanan mywebtools.</p>
+  </header>
+
+  <div class="space-y-6">
+
+    <!-- Topik 1 -->
+    <div class="bg-zinc-800 rounded-[24px] p-6 sm:p-8 border border-zinc-700 shadow-lg">
+      <div class="flex items-center gap-4 mb-4">
+        <div class="w-10 h-10 rounded-full bg-blue-900/40 text-blue-400 flex items-center justify-center font-bold text-lg shrink-0">1</div>
+        <h2 class="text-2xl brand-font font-normal text-zinc-100">Logika Peran Akses (RBAC)</h2>
+      </div>
+      <p class="text-zinc-400 mb-4 ml-14">Menentukan batas akses antara Admin dan User biasa dengan menyuntikkan Role ke dalam JWT.</p>
+      <div class="ml-14 bg-zinc-900 rounded-xl p-4 border border-zinc-700/50">
+        <ul class="list-disc list-inside text-zinc-300 space-y-2 text-sm mb-3">
+          <li><strong>Mekanisme Keamanan:</strong> Role akan diikat ke dalam <code>raw_app_meta_data</code> Supabase Auth (bukan sekadar tabel biasa) agar sangat aman dari manipulasi sisi-klien (Client-side).</li>
+          <li>Contoh perintah SQL Editor untuk menetapkan pengguna pertama sebagai Super Admin:</li>
+        </ul>
+        <pre class="bg-black/50 p-4 rounded-lg overflow-x-auto text-xs text-blue-300 border border-zinc-700"><code>-- Ganti email dengan email akun Anda yang terdaftar
+UPDATE auth.users 
+SET raw_app_meta_data = raw_app_meta_data || '{"role": "admin"}' 
+WHERE email = 'admin@example.com';</code></pre>
+      </div>
+    </div>
+
+    <!-- Topik 2 -->
+    <div class="bg-zinc-800 rounded-[24px] p-6 sm:p-8 border border-zinc-700 shadow-lg">
+      <div class="flex items-center gap-4 mb-4">
+        <div class="w-10 h-10 rounded-full bg-blue-900/40 text-blue-400 flex items-center justify-center font-bold text-lg shrink-0">2</div>
+        <h2 class="text-2xl brand-font font-normal text-zinc-100">Relasi & Privasi Dokumen</h2>
+      </div>
+      <p class="text-zinc-400 mb-4 ml-14">Menentukan tingkat privasi atau kepemilikan dokumen yang diunggah.</p>
+      <div class="ml-14 bg-zinc-900 rounded-xl p-4 border border-zinc-700/50">
+        <ul class="list-disc list-inside text-zinc-300 space-y-2 text-sm">
+          <li><strong>Status:</strong> Menunggu Keputusan Lanjutan</li>
+          <li><strong>Opsi A:</strong> Semua dokumen bersifat Publik Internal (semua yang login bisa melihat).</li>
+          <li><strong>Opsi B:</strong> Dokumen bersifat Privat (User hanya melihat dokumen miliknya sendiri, Admin melihat semua). Membutuhkan kolom <code>user_id</code>.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Topik 3 -->
+    <div class="bg-zinc-800 rounded-[24px] p-6 sm:p-8 border border-zinc-700 shadow-lg">
+      <div class="flex items-center gap-4 mb-4">
+        <div class="w-10 h-10 rounded-full bg-blue-900/40 text-blue-400 flex items-center justify-center font-bold text-lg shrink-0">3</div>
+        <h2 class="text-2xl brand-font font-normal text-zinc-100">Fungsionalitas Lanjutan UI</h2>
+      </div>
+      <p class="text-zinc-400 mb-4 ml-14">Menghidupkan komponen UI yang saat ini masih bersifat statis.</p>
+      <div class="ml-14 bg-zinc-900 rounded-xl p-4 border border-zinc-700/50">
+        <ul class="list-disc list-inside text-zinc-300 space-y-2 text-sm">
+          <li><strong>Status:</strong> Rencana Ke Depan</li>
+          <li>Mengaktifkan <strong>Search Bar</strong> (Pencarian Real-time).</li>
+          <li>Menambahkan logika <strong>Paginasi (Load More)</strong> jika data lebih dari 50 baris.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Topik 4 -->
+    <div class="bg-zinc-800 rounded-[24px] p-6 sm:p-8 border border-zinc-700 shadow-lg">
+      <div class="flex items-center gap-4 mb-4">
+        <div class="w-10 h-10 rounded-full bg-blue-900/40 text-blue-400 flex items-center justify-center font-bold text-lg shrink-0">4</div>
+        <h2 class="text-2xl brand-font font-normal text-zinc-100">Keamanan Supabase (RLS)</h2>
+      </div>
+      <p class="text-zinc-400 mb-4 ml-14">Menerapkan Row Level Security pada Database agar API publik tidak bisa memanipulasi data tanpa izin, divalidasi lewat JWT Role.</p>
+      <div class="ml-14 bg-zinc-900 rounded-xl p-4 border border-zinc-700/50">
+        <h3 class="font-bold text-zinc-100 text-sm mb-2">Aturan Spesifik RLS (Contoh untuk Tabel):</h3>
+        <ul class="list-disc list-inside text-zinc-300 space-y-2 text-sm mb-4">
+          <li><strong>SELECT (Akses Baca):</strong> Semua pengguna yang <em>Authenticated</em> (baik user maupun admin) berhak membaca daftar.</li>
+          <li><strong>INSERT/UPDATE/DELETE (Akses Tulis):</strong> HANYA pemilik JWT yang memiliki atribut metadata <code>role = 'admin'</code> yang berhak mengubah data base.</li>
+        </ul>
+        <pre class="bg-black/50 p-4 rounded-lg overflow-x-auto text-xs text-green-300 border border-zinc-700"><code>-- Kebijakan SELECT
+CREATE POLICY "Bolehkan baca untuk authenticated users" ON nama_tabel
+FOR SELECT USING (auth.role() = 'authenticated');
+
+-- Kebijakan TULIS/MODIFIKASI (Hanya Admin)
+CREATE POLICY "Hanya Admin yang boleh Tulis" ON nama_tabel 
+FOR ALL USING (auth.jwt() -> 'app_metadata' ->> 'role' = 'admin');</code></pre>
+      </div>
+    </div>
+
+    <!-- Topik 5 -->
+    <div class="bg-zinc-800 rounded-[24px] p-6 sm:p-8 border border-zinc-700 shadow-lg">
+      <div class="flex items-center gap-4 mb-4">
+        <div class="w-10 h-10 rounded-full bg-blue-900/40 text-blue-400 flex items-center justify-center font-bold text-lg shrink-0">5</div>
+        <h2 class="text-2xl brand-font font-normal text-zinc-100">Siklus Sesi & Pembaruan Token (Token Refresh)</h2>
+      </div>
+      <p class="text-zinc-400 mb-4 ml-14">Manajemen daur hidup sesi login (Lifecycle) agar SPA kita kebal dari error saat JWT kedaluwarsa.</p>
+      <div class="ml-14 bg-zinc-900 rounded-xl p-4 border border-zinc-700/50">
+        <ul class="list-disc list-inside text-zinc-300 space-y-2 text-sm">
+          <li><strong>Penyegaran Otomatis:</strong> Supabase JS Client (di <code>auth.js</code>) sebenarnya sudah menangani penyegaran token (refresh token) secara berkala di latar belakang.</li>
+          <li><strong>Penanganan Sesi Mati:</strong> Kita akan menanamkan fungsi <code>supabase.auth.onAuthStateChange()</code> secara global. Jika token benar-benar mati (expired tanpa bisa direfresh) atau di-revoke oleh server, fungsi ini akan mencegat <em>event</em> <code>SIGNED_OUT</code> dan seketika menendang pengguna ke <code>#login</code>.</li>
+          <li><strong>Mencegah Crash UI:</strong> Ini memastikan aplikasi tidak mencoba menarik data (Fetch Data) dengan token hangus yang akan berujung pada HTTP 401 dan layar <em>blank</em>/tampilan <em>loading</em> abadi.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="mt-12 text-center text-zinc-600 text-sm">
+    Dokumen arsitektur v2.0 - Diperbarui berdasarkan umpan balik pengguna.
+  </footer>
+
+</body>
+</html>

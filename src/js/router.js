@@ -12,7 +12,7 @@ export async function handleRoute() {
   const viewMain = document.getElementById('view-main');
   
   // 1. Cek otentikasi dari Supabase
-  const isAuthenticated = await checkSession();
+  const { isAuthenticated, role } = await checkSession();
   
   if (!isAuthenticated) {
     // Paksa ke login view
@@ -33,6 +33,24 @@ export async function handleRoute() {
     return;
   }
   
+  // Guard khusus RBAC (Opsi A): Blokir user biasa dari menu Users
+  if (hash === '#users' && role !== 'admin') {
+    window.location.hash = '#dashboard';
+    return;
+  }
+  
+  // Sembunyikan link navigasi Users di sidebar jika bukan admin
+  const usersNavLink = document.querySelector('a.nav-link[href="#users"]');
+  if (usersNavLink) {
+    if (role === 'admin') {
+      usersNavLink.classList.remove('hidden');
+      usersNavLink.classList.add('flex'); // kembalikan ke flex (default class)
+    } else {
+      usersNavLink.classList.add('hidden');
+      usersNavLink.classList.remove('flex');
+    }
+  }
+  
   // 2. Sembunyikan semua page-view di dalam main container
   document.querySelectorAll('.page-view').forEach(el => el.classList.add('hidden'));
   
@@ -46,14 +64,14 @@ export async function handleRoute() {
     document.getElementById('page-dashboard').classList.remove('hidden');
   }
   
-  // 4. Update tampilan navigasi aktif di Sidebar
+  // 4. Update tampilan navigasi aktif di Sidebar dengan kelas MD3 Tailwind
   document.querySelectorAll('.nav-link').forEach(el => {
     if (el.getAttribute('href') === hash) {
-      el.classList.add('bg-primary', 'text-primary-content');
-      el.classList.remove('text-base-content');
+      el.classList.add('bg-blue-900/40', 'text-blue-400');
+      el.classList.remove('text-zinc-300', 'hover:bg-zinc-800');
     } else {
-      el.classList.remove('bg-primary', 'text-primary-content');
-      el.classList.add('text-base-content');
+      el.classList.remove('bg-blue-900/40', 'text-blue-400');
+      el.classList.add('text-zinc-300', 'hover:bg-zinc-800');
     }
   });
 
