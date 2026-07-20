@@ -2,11 +2,11 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/login", "destination": "/pages/login.html" },
-    { "source": "/register", "destination": "/pages/register.html" },
-    { "source": "/dashboard", "destination": "/pages/dashboard.html" },
-    { "source": "/users", "destination": "/pages/users.html" },
-    { "source": "/settings", "destination": "/pages/settings.html" },
-    { "source": "/roadmap", "destination": "/pages/roadmap.html" }
+    { "source": "/login", "destination": "/pages/login" },
+    { "source": "/register", "destination": "/pages/register" },
+    { "source": "/dashboard", "destination": "/pages/dashboard" },
+    { "source": "/users", "destination": "/pages/users" },
+    { "source": "/settings", "destination": "/pages/settings" },
+    { "source": "/roadmap", "destination": "/pages/roadmap" }
   ]
 }
