@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -23,185 +24,243 @@
   </script>
   <style>
     .brand-font { font-family: 'Google Sans', sans-serif; }
+    /* Transisi untuk accordion content */
+    .accordion-content {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 300ms ease-in-out;
+    }
+    .accordion-content > div {
+      overflow: hidden;
+    }
+    .accordion-content.open {
+      grid-template-rows: 1fr;
+    }
   </style>
 </head>
-<body class="bg-zinc-900 text-zinc-100 min-h-screen p-6 md:p-12 antialiased selection:bg-blue-900 selection:text-blue-200">
+<body class="bg-zinc-900 text-zinc-100 min-h-screen p-4 md:p-8 antialiased selection:bg-blue-900 selection:text-blue-200">
   
-  <header class="max-w-4xl mx-auto mb-16 text-center">
-    <div class="inline-flex items-center gap-3 mb-6 bg-zinc-800/50 px-4 py-2 rounded-full border border-zinc-700/50">
+  <header class="max-w-4xl mx-auto mb-10 text-center">
+    <div class="inline-flex items-center gap-3 mb-4 bg-zinc-800/50 px-3 py-1.5 rounded-full border border-zinc-700/50">
       <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
-      <span class="text-sm font-medium text-zinc-300 tracking-wide">ARSITEKTUR MULTI-PAGE (MPA)</span>
+      <span class="text-xs font-medium text-zinc-300 tracking-wide">ARSITEKTUR MULTI-PAGE (MPA)</span>
     </div>
-    <h1 class="text-4xl md:text-6xl font-normal brand-font mb-6 text-zinc-50 tracking-tight">Peta Jalan <span class="text-zinc-500">Aplikasi</span></h1>
-    <p class="text-zinc-400 text-lg max-w-2xl mx-auto leading-relaxed">
-      Dokumen ini melacak modul yang telah diselesaikan dan rencana pengembangan masa depan untuk sistem MyWebTools berbasis Multi-Page Application.
+    <h1 class="text-3xl md:text-5xl font-normal brand-font mb-4 text-zinc-50 tracking-tight">Peta Jalan <span class="text-zinc-500">Aplikasi</span></h1>
+    <p class="text-zinc-400 text-sm max-w-xl mx-auto leading-relaxed">
+      Dokumen ini melacak modul yang telah diselesaikan dan rencana pengembangan masa depan.
     </p>
   </header>
 
-  <div class="max-w-4xl mx-auto space-y-8 relative">
-    <!-- Garis konektor background -->
-    <div class="absolute left-8 md:left-12 top-10 bottom-10 w-px bg-zinc-800 -z-10"></div>
-
-    <!-- FASE SELESAI -->
-    <div class="bg-zinc-800 rounded-[24px] p-6 sm:p-8 border border-zinc-700 shadow-lg ring-1 ring-green-900/50 relative overflow-hidden">
-      <div class="absolute top-0 right-0 w-32 h-32 bg-green-900/10 rounded-full blur-3xl"></div>
-      <div class="flex items-center gap-4 mb-4 relative z-10">
-        <div class="w-10 h-10 rounded-full bg-green-900/40 text-green-400 flex items-center justify-center shrink-0">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-        </div>
+  <div class="max-w-3xl mx-auto space-y-4 relative">
+    
+    <!-- FASE SELESAI 1: Fondasi -->
+    <div class="bg-zinc-800/80 rounded-2xl border border-zinc-700 overflow-hidden accordion-item">
+      <button class="w-full flex items-center justify-between p-4 sm:p-5 hover:bg-zinc-700/50 transition-colors accordion-header focus:outline-none">
         <div class="flex items-center gap-3">
-          <h2 class="text-2xl brand-font font-normal text-zinc-100">Fondasi & Arsitektur MPA</h2>
-          <span class="px-3 py-1 bg-green-900/40 text-green-400 text-xs font-bold rounded-full border border-green-800">SELESAI</span>
+          <i data-lucide="check-circle" class="w-5 h-5 text-green-400"></i>
+          <h2 class="text-base brand-font font-medium text-zinc-100 text-left">Fondasi & Arsitektur MPA</h2>
+          <span class="px-2 py-0.5 bg-green-900/40 text-green-400 text-[10px] font-bold rounded-full border border-green-800">(Selesai)</span>
         </div>
-      </div>
-      <p class="text-zinc-400 mb-4 ml-14 relative z-10">Infrastruktur utama aplikasi web telah berhasil dibangun dan diisolasi ke dalam file HTML independen.</p>
-      <div class="ml-14 bg-zinc-900/50 rounded-xl p-4 border border-zinc-700/50 relative z-10 opacity-75">
-        <ul class="list-disc list-inside text-zinc-400 space-y-2 text-sm">
-          <li><strong>Struktur File Terpisah:</strong> Berjalan di atas <code>index.html</code> (Redirector), <code>login.html</code>, <code>register.html</code>, dan <code>dashboard.html</code>.</li>
-          <li><strong>Otentikasi Dasar:</strong> Modul Login dan Pendaftaran Supabase sudah beroperasi dengan penjaga rute (Route Guards) di setiap halaman.</li>
-          <li><strong>Pengalaman Pengguna (UI):</strong> Menggunakan gaya desain Google Account (Material Design 3 / Dark Mode).</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- BLUEPRINT ARSITEKTUR -->
-    <div class="bg-zinc-800 rounded-[24px] p-6 sm:p-8 border border-zinc-700/50 shadow-xl relative overflow-hidden">
-      <!-- Glow Effect -->
-      <div class="absolute top-0 right-0 w-64 h-64 bg-blue-900/10 rounded-full blur-3xl pointer-events-none"></div>
-      
-      <div class="flex items-center gap-4 mb-6 relative z-10">
-        <div class="w-10 h-10 rounded-full bg-blue-900/40 text-blue-400 flex items-center justify-center shrink-0 border border-blue-800/50">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-            <path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z" />
-          </svg>
-        </div>
-        <h2 class="text-2xl brand-font font-normal text-zinc-100">Cetak Biru Konstruksi Proyek</h2>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 relative z-10">
-        <!-- Kolom Kiri: Pohon Folder -->
-        <div class="lg:col-span-5 bg-zinc-900/60 rounded-2xl p-5 border border-zinc-700/50 font-mono text-sm shadow-inner">
-          <div class="text-zinc-300 font-bold mb-3 flex items-center gap-2 border-b border-zinc-700/50 pb-2">
-            <span>📁</span> root/
-          </div>
-          <ul class="text-zinc-400 space-y-1.5 ml-1">
-            <li class="flex items-center gap-2 group"><span class="text-zinc-600">├──</span> <span>📁</span> <span class="group-hover:text-zinc-200 transition-colors">.agents/skills/</span></li>
-            <li class="flex items-center gap-2 group"><span class="text-zinc-600">├──</span> <span>📁</span> <span class="group-hover:text-zinc-200 transition-colors">public/</span></li>
-            <li class="flex items-center gap-2 group"><span class="text-zinc-600">├──</span> <span>📁</span> <span class="group-hover:text-zinc-200 transition-colors">src/</span></li>
-            <li class="flex items-center gap-2 group"><span class="text-zinc-600">│&nbsp;&nbsp;&nbsp;├──</span> <span>📁</span> <span class="group-hover:text-zinc-200 transition-colors">js/</span></li>
-            <li class="flex items-center gap-2 group"><span class="text-zinc-600">│&nbsp;&nbsp;&nbsp;└──</span> <span>🎨</span> <span class="group-hover:text-zinc-200 transition-colors">css/ (style.css)</span></li>
-            <li class="flex items-center gap-2 group"><span class="text-zinc-600">├──</span> <span>📁</span> <span class="text-indigo-300 font-semibold">pages/</span></li>
-            <li class="flex items-center gap-2 group"><span class="text-zinc-600">│&nbsp;&nbsp;&nbsp;├──</span> <span>🌐</span> <span class="group-hover:text-zinc-200 transition-colors">login.html</span></li>
-            <li class="flex items-center gap-2 group"><span class="text-zinc-600">│&nbsp;&nbsp;&nbsp;├──</span> <span>🌐</span> <span class="group-hover:text-zinc-200 transition-colors">register.html</span></li>
-            <li class="flex items-center gap-2 group"><span class="text-zinc-600">│&nbsp;&nbsp;&nbsp;├──</span> <span>🌐</span> <span class="group-hover:text-zinc-200 transition-colors">dashboard.html</span></li>
-            <li class="flex items-center gap-2 group"><span class="text-zinc-600">│&nbsp;&nbsp;&nbsp;├──</span> <span>🌐</span> <span class="group-hover:text-zinc-200 transition-colors">users.html</span></li>
-            <li class="flex items-center gap-2 group"><span class="text-zinc-600">│&nbsp;&nbsp;&nbsp;├──</span> <span>🌐</span> <span class="group-hover:text-zinc-200 transition-colors">settings.html</span></li>
-            <li class="flex items-center gap-2 group"><span class="text-zinc-600">│&nbsp;&nbsp;&nbsp;└──</span> <span>🌐</span> <span class="group-hover:text-zinc-200 transition-colors">roadmap.html</span></li>
-            <li class="flex items-center gap-2 group"><span class="text-zinc-600">├──</span> <span>🌐</span> <span class="text-blue-300 font-semibold">index.html</span></li>
-            <li class="flex items-center gap-2 group"><span class="text-zinc-600">├──</span> <span>⚙️</span> <span class="text-emerald-400">vite.config.js</span></li>
-            <li class="flex items-center gap-2 group"><span class="text-zinc-600">├──</span> <span>⚙️</span> <span class="group-hover:text-zinc-200 transition-colors">vercel.json</span></li>
-            <li class="flex items-center gap-2 group"><span class="text-zinc-600">├──</span> <span>📄</span> <span class="text-amber-300">package.json</span></li>
-            <li class="flex items-center gap-2 group"><span class="text-zinc-600">├──</span> <span>🔒</span> <span class="text-rose-400">.env</span></li>
-            <li class="flex items-center gap-2 group"><span class="text-zinc-600">└──</span> <span>📄</span> <span class="group-hover:text-zinc-200 transition-colors">.gitignore</span></li>
-          </ul>
-        </div>
-
-        <!-- Kolom Kanan: Detail -->
-        <div class="lg:col-span-7 flex flex-col justify-center space-y-4">
-          <div class="bg-zinc-900/40 p-4 rounded-xl border border-zinc-700/30 hover:border-zinc-600 transition-colors">
-            <h4 class="text-zinc-200 font-semibold text-sm flex items-center gap-2 mb-1"><span class="text-lg">📁</span> Direktori Inti</h4>
-            <ul class="text-sm text-zinc-400 space-y-1 list-disc list-outside ml-4">
-              <li><strong class="text-zinc-300">.agents/skills/</strong>: Wadah rahasia penyimpan instruksi cerdas untuk AI Agent.</li>
-              <li><strong class="text-zinc-300">src/js/</strong>: Otak logika JavaScript (Supabase Auth, Route Guard, dll).</li>
-              <li><strong class="text-zinc-300">public/</strong>: Aset statis yang lolos dari kompilasi Vite (logo, favicon).</li>
-            </ul>
-          </div>
-
-          <div class="bg-zinc-900/40 p-4 rounded-xl border border-zinc-700/30 hover:border-zinc-600 transition-colors">
-            <h4 class="text-zinc-200 font-semibold text-sm flex items-center gap-2 mb-1"><span class="text-lg">🌐</span> Halaman MPA (Frontend)</h4>
-            <ul class="text-sm text-zinc-400 space-y-1 list-disc list-outside ml-4">
-              <li><strong class="text-blue-300">index.html</strong>: Gerbang utama yang memantulkan pengguna ke login atau dasbor (Redirector).</li>
-              <li><strong class="text-zinc-300">login & register</strong>: Antarmuka otentikasi pengguna.</li>
-              <li><strong class="text-zinc-300">dashboard & users</strong>: Halaman inti terproteksi untuk manajemen data.</li>
-            </ul>
-          </div>
-
-          <div class="bg-zinc-900/40 p-4 rounded-xl border border-zinc-700/30 hover:border-zinc-600 transition-colors">
-            <h4 class="text-zinc-200 font-semibold text-sm flex items-center gap-2 mb-1"><span class="text-lg">⚙️</span> Konfigurasi Sistem</h4>
-            <ul class="text-sm text-zinc-400 space-y-1 list-disc list-outside ml-4">
-              <li><strong class="text-emerald-400">vite.config.js</strong>: Mesin kompilasi cerdas yang merakit rute MPA kita.</li>
-              <li><strong class="text-zinc-300">vercel.json</strong>: Pengatur server awan Vercel (memastikan Clean URLs aktif).</li>
-              <li><strong class="text-amber-300">package.json</strong>: Manifes pustaka/dependensi NPM proyek.</li>
-              <li><strong class="text-rose-400">.env</strong>: Brankas kunci rahasia API lokal (tidak di-push ke GitHub).</li>
-            </ul>
+        <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 transition-transform duration-300 accordion-icon"></i>
+      </button>
+      <div class="accordion-content">
+        <div>
+          <div class="p-4 sm:p-5 pt-0 border-t border-zinc-700/50 mt-2">
+            <p class="text-zinc-400 text-xs sm:text-sm mb-3">Infrastruktur utama aplikasi web telah berhasil dibangun dan diisolasi ke dalam file HTML independen.</p>
+            <div class="bg-zinc-900/50 rounded-lg p-3 border border-zinc-700/50">
+              <ul class="list-disc list-inside text-zinc-400 space-y-1.5 text-xs sm:text-sm">
+                <li><strong>Struktur Terpisah:</strong> Berjalan di atas <code>index.html</code> (Redirector), <code>login.html</code>, <code>register.html</code>, dan <code>dashboard.html</code>.</li>
+                <li><strong>Otentikasi Dasar:</strong> Modul Login dan Pendaftaran Supabase sudah beroperasi dengan Route Guards.</li>
+                <li><strong>UI:</strong> Menggunakan gaya desain Google Account (Material 3 / Dark Mode).</li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- FASE SELESAI: RBAC -->
-    <div class="bg-zinc-800 rounded-[24px] p-6 sm:p-8 border border-zinc-700 shadow-lg ring-1 ring-green-900/50 relative overflow-hidden">
-      <div class="absolute top-0 right-0 w-32 h-32 bg-green-900/10 rounded-full blur-3xl"></div>
-      <div class="flex items-center gap-4 mb-4 relative z-10">
-        <div class="w-10 h-10 rounded-full bg-green-900/40 text-green-400 flex items-center justify-center shrink-0">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-        </div>
+    <!-- FASE SELESAI 2: Blueprint -->
+    <div class="bg-zinc-800/80 rounded-2xl border border-zinc-700 overflow-hidden accordion-item">
+      <button class="w-full flex items-center justify-between p-4 sm:p-5 hover:bg-zinc-700/50 transition-colors accordion-header focus:outline-none">
         <div class="flex items-center gap-3">
-          <h2 class="text-2xl brand-font font-normal text-zinc-100">Logika Peran Akses (RBAC)</h2>
-          <span class="px-3 py-1 bg-green-900/40 text-green-400 text-xs font-bold rounded-full border border-green-800">SELESAI</span>
+          <i data-lucide="check-circle" class="w-5 h-5 text-green-400"></i>
+          <h2 class="text-base brand-font font-medium text-zinc-100 text-left">Cetak Biru Konstruksi Proyek</h2>
+          <span class="px-2 py-0.5 bg-green-900/40 text-green-400 text-[10px] font-bold rounded-full border border-green-800">(Selesai)</span>
         </div>
-      </div>
-      <p class="text-zinc-400 mb-4 ml-14 relative z-10">Memisahkan wewenang antara pengguna biasa dan Administrator.</p>
-      <div class="ml-14 bg-zinc-900/50 rounded-xl p-4 border border-zinc-700/50 relative z-10 opacity-75">
-        <ul class="list-disc list-inside text-zinc-400 space-y-2 text-sm">
-          <li>Memanfaatkan Metadata Supabase (<code>raw_app_meta_data</code>) untuk menyimpan status role.</li>
-          <li>Memberlakukan <em>guard</em> tambahan: Menu tertentu (seperti manajemen pengguna di <code>users.html</code>) otomatis menendang keluar pengguna jika mereka bukan <code>admin</code>.</li>
-        </ul>
+        <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 transition-transform duration-300 accordion-icon"></i>
+      </button>
+      <div class="accordion-content">
+        <div>
+          <div class="p-4 sm:p-5 pt-0 border-t border-zinc-700/50 mt-2">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <!-- Kolom Kiri: Pohon Folder -->
+              <div class="bg-zinc-900/60 rounded-xl p-3 border border-zinc-700/50 font-mono text-xs shadow-inner">
+                <div class="text-zinc-300 font-bold mb-2 flex items-center gap-2 border-b border-zinc-700/50 pb-2">
+                  <i data-lucide="folder" class="w-3.5 h-3.5"></i> root/
+                </div>
+                <ul class="text-zinc-400 space-y-1 ml-1">
+                  <li class="flex items-center gap-1.5"><span class="text-zinc-600">├──</span> <i data-lucide="folder" class="w-3.5 h-3.5 text-zinc-500"></i> .agents/</li>
+                  <li class="flex items-center gap-1.5"><span class="text-zinc-600">├──</span> <i data-lucide="folder" class="w-3.5 h-3.5 text-zinc-500"></i> public/</li>
+                  <li class="flex items-center gap-1.5"><span class="text-zinc-600">├──</span> <i data-lucide="folder" class="w-3.5 h-3.5 text-zinc-500"></i> src/</li>
+                  <li class="flex items-center gap-1.5"><span class="text-zinc-600">├──</span> <i data-lucide="folder" class="w-3.5 h-3.5 text-indigo-400"></i> pages/</li>
+                  <li class="flex items-center gap-1.5"><span class="text-zinc-600">│&nbsp;&nbsp;├──</span> <i data-lucide="layout" class="w-3.5 h-3.5 text-zinc-400"></i> login, register, dashboard</li>
+                  <li class="flex items-center gap-1.5"><span class="text-zinc-600">├──</span> <i data-lucide="layout" class="w-3.5 h-3.5 text-blue-400"></i> index.html</li>
+                  <li class="flex items-center gap-1.5"><span class="text-zinc-600">├──</span> <i data-lucide="settings" class="w-3.5 h-3.5 text-emerald-400"></i> vite.config.js</li>
+                  <li class="flex items-center gap-1.5"><span class="text-zinc-600">└──</span> <i data-lucide="settings" class="w-3.5 h-3.5 text-amber-300"></i> vercel.json, package.json</li>
+                </ul>
+              </div>
+              <!-- Kolom Kanan: Detail -->
+              <div class="flex flex-col space-y-2">
+                <div class="bg-zinc-900/40 p-3 rounded-xl border border-zinc-700/30">
+                  <h4 class="text-zinc-200 font-semibold text-[13px] flex items-center gap-2 mb-1"><i data-lucide="folder" class="w-4 h-4"></i> Direktori Inti</h4>
+                  <ul class="text-[11px] text-zinc-400 space-y-1 list-disc list-inside">
+                    <li><strong>.agents/:</strong> Instruksi AI Agent.</li>
+                    <li><strong>src/js/:</strong> Otak logika JavaScript.</li>
+                  </ul>
+                </div>
+                <div class="bg-zinc-900/40 p-3 rounded-xl border border-zinc-700/30">
+                  <h4 class="text-zinc-200 font-semibold text-[13px] flex items-center gap-2 mb-1"><i data-lucide="settings" class="w-4 h-4"></i> Konfigurasi</h4>
+                  <ul class="text-[11px] text-zinc-400 space-y-1 list-disc list-inside">
+                    <li><strong>vite.config.js:</strong> Mesin kompilasi MPA.</li>
+                    <li><strong>vercel.json:</strong> Pengatur Clean URLs.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- FASE MASA DEPAN 2 -->
-    <div class="bg-zinc-800 rounded-[24px] p-6 sm:p-8 border border-zinc-700 shadow-lg">
-      <div class="flex items-center gap-4 mb-4">
-        <div class="w-10 h-10 rounded-full bg-blue-900/40 text-blue-400 flex items-center justify-center font-bold text-lg shrink-0">2</div>
+    <!-- FASE SELESAI 3: RBAC -->
+    <div class="bg-zinc-800/80 rounded-2xl border border-zinc-700 overflow-hidden accordion-item">
+      <button class="w-full flex items-center justify-between p-4 sm:p-5 hover:bg-zinc-700/50 transition-colors accordion-header focus:outline-none">
         <div class="flex items-center gap-3">
-          <h2 class="text-2xl brand-font font-normal text-zinc-100">Manajemen Dokumen Penuh</h2>
-          <span class="px-3 py-1 bg-blue-900/40 text-blue-400 text-xs font-bold rounded-full border border-blue-800">MENDATANG</span>
+          <i data-lucide="check-circle" class="w-5 h-5 text-green-400"></i>
+          <h2 class="text-base brand-font font-medium text-zinc-100 text-left">Logika Peran Akses (RBAC)</h2>
+          <span class="px-2 py-0.5 bg-green-900/40 text-green-400 text-[10px] font-bold rounded-full border border-green-800">(Selesai)</span>
         </div>
-      </div>
-      <p class="text-zinc-400 mb-4 ml-14">Menghidupkan tabel dokumen di <code>dashboard.html</code> dengan operasi Create, Read, Update, Delete (CRUD).</p>
-      <div class="ml-14 bg-zinc-900 rounded-xl p-4 border border-zinc-700/50">
-        <ul class="list-disc list-inside text-zinc-300 space-y-2 text-sm">
-          <li>Mengambil data riwayat dokumen dari database Supabase.</li>
-          <li>Mengaktifkan form unggah dokumen via Modal UI.</li>
-          <li>Menentukan privasi (relasi): Apakah dokumen bersifat Publik (terlihat semua) atau Privat (berbasis <code>user_id</code>).</li>
-        </ul>
+        <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 transition-transform duration-300 accordion-icon"></i>
+      </button>
+      <div class="accordion-content">
+        <div>
+          <div class="p-4 sm:p-5 pt-0 border-t border-zinc-700/50 mt-2">
+            <p class="text-zinc-400 text-xs sm:text-sm mb-3">Memisahkan wewenang antara pengguna biasa dan Administrator.</p>
+            <div class="bg-zinc-900/50 rounded-lg p-3 border border-zinc-700/50">
+              <ul class="list-disc list-inside text-zinc-400 space-y-1.5 text-xs sm:text-sm">
+                <li>Memanfaatkan Metadata Supabase (<code>raw_app_meta_data</code>) untuk menyimpan status role.</li>
+                <li>Memberlakukan <em>guard</em> tambahan: Menu tertentu otomatis menendang keluar pengguna jika mereka bukan <code>admin</code>.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- FASE MASA DEPAN 3 -->
-    <div class="bg-zinc-800 rounded-[24px] p-6 sm:p-8 border border-zinc-700 shadow-lg">
-      <div class="flex items-center gap-4 mb-4">
-        <div class="w-10 h-10 rounded-full bg-blue-900/40 text-blue-400 flex items-center justify-center font-bold text-lg shrink-0">3</div>
+    <!-- FASE SELESAI 4: Sidebar UI -->
+    <div class="bg-zinc-800/80 rounded-2xl border border-zinc-700 overflow-hidden accordion-item">
+      <button class="w-full flex items-center justify-between p-4 sm:p-5 hover:bg-zinc-700/50 transition-colors accordion-header focus:outline-none">
         <div class="flex items-center gap-3">
-          <h2 class="text-2xl brand-font font-normal text-zinc-100">Keamanan Database (RLS Policies)</h2>
-          <span class="px-3 py-1 bg-blue-900/40 text-blue-400 text-xs font-bold rounded-full border border-blue-800">MENDATANG</span>
+          <i data-lucide="check-circle" class="w-5 h-5 text-green-400"></i>
+          <h2 class="text-base brand-font font-medium text-zinc-100 text-left">UI/UX: Sidebar Collapsible & Clean URLs</h2>
+          <span class="px-2 py-0.5 bg-green-900/40 text-green-400 text-[10px] font-bold rounded-full border border-green-800">(Selesai)</span>
+        </div>
+        <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 transition-transform duration-300 accordion-icon"></i>
+      </button>
+      <div class="accordion-content">
+        <div>
+          <div class="p-4 sm:p-5 pt-0 border-t border-zinc-700/50 mt-2">
+            <p class="text-zinc-400 text-xs sm:text-sm mb-3">Peningkatan antarmuka untuk kenyamanan dan efisiensi ruang.</p>
+            <div class="bg-zinc-900/50 rounded-lg p-3 border border-zinc-700/50">
+              <ul class="list-disc list-inside text-zinc-400 space-y-1.5 text-xs sm:text-sm">
+                <li>Navigasi sidebar bisa di-minimize/maximize dengan state tersimpan di <code>localStorage</code>.</li>
+                <li>Implementasi penuh <strong>Lucide Icons</strong> yang lebih ringan dan modern.</li>
+                <li>Sistem Clean URLs: Semua file <code>.html</code> telah dihilangkan dari baris alamat browser.</li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
-      <p class="text-zinc-400 mb-4 ml-14">Melindungi API Supabase dari manipulasi jahat dengan mengunci tabel secara logis di level database.</p>
-      <div class="ml-14 bg-zinc-900 rounded-xl p-4 border border-zinc-700/50">
-        <ul class="list-disc list-inside text-zinc-300 space-y-2 text-sm">
-          <li><strong>SELECT:</strong> Kebijakan agar data hanya bisa dibaca oleh pengguna yang telah login secara sah.</li>
-          <li><strong>INSERT/UPDATE/DELETE:</strong> Kebijakan ketat bahwa aksi memodifikasi data hanya bisa dilakukan oleh peran (Role) Admin atau pemilik data.</li>
-        </ul>
+    </div>
+
+    <!-- FASE MENDATANG 1: Dokumen -->
+    <div class="bg-zinc-800/80 rounded-2xl border border-zinc-700 overflow-hidden accordion-item">
+      <button class="w-full flex items-center justify-between p-4 sm:p-5 hover:bg-zinc-700/50 transition-colors accordion-header focus:outline-none">
+        <div class="flex items-center gap-3">
+          <i data-lucide="circle-dashed" class="w-5 h-5 text-blue-400"></i>
+          <h2 class="text-base brand-font font-medium text-zinc-100 text-left">Manajemen Dokumen Penuh</h2>
+          <span class="px-2 py-0.5 bg-blue-900/40 text-blue-400 text-[10px] font-bold rounded-full border border-blue-800">Mendatang</span>
+        </div>
+        <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 transition-transform duration-300 accordion-icon"></i>
+      </button>
+      <div class="accordion-content">
+        <div>
+          <div class="p-4 sm:p-5 pt-0 border-t border-zinc-700/50 mt-2">
+            <p class="text-zinc-400 text-xs sm:text-sm mb-3">Menghidupkan tabel dokumen di <code>dashboard.html</code> dengan operasi Create, Read, Update, Delete (CRUD).</p>
+            <div class="bg-zinc-900/50 rounded-lg p-3 border border-zinc-700/50">
+              <ul class="list-disc list-inside text-zinc-400 space-y-1.5 text-xs sm:text-sm">
+                <li>Mengambil data riwayat dokumen dari database Supabase.</li>
+                <li>Mengaktifkan form unggah dokumen via Modal UI.</li>
+                <li>Menentukan privasi (relasi): Publik atau Privat (berbasis <code>user_id</code>).</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FASE MENDATANG 2: RLS -->
+    <div class="bg-zinc-800/80 rounded-2xl border border-zinc-700 overflow-hidden accordion-item">
+      <button class="w-full flex items-center justify-between p-4 sm:p-5 hover:bg-zinc-700/50 transition-colors accordion-header focus:outline-none">
+        <div class="flex items-center gap-3">
+          <i data-lucide="circle-dashed" class="w-5 h-5 text-blue-400"></i>
+          <h2 class="text-base brand-font font-medium text-zinc-100 text-left">Keamanan Database (RLS Policies)</h2>
+          <span class="px-2 py-0.5 bg-blue-900/40 text-blue-400 text-[10px] font-bold rounded-full border border-blue-800">Mendatang</span>
+        </div>
+        <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 transition-transform duration-300 accordion-icon"></i>
+      </button>
+      <div class="accordion-content">
+        <div>
+          <div class="p-4 sm:p-5 pt-0 border-t border-zinc-700/50 mt-2">
+            <p class="text-zinc-400 text-xs sm:text-sm mb-3">Melindungi API Supabase dari manipulasi jahat dengan mengunci tabel secara logis di level database.</p>
+            <div class="bg-zinc-900/50 rounded-lg p-3 border border-zinc-700/50">
+              <ul class="list-disc list-inside text-zinc-400 space-y-1.5 text-xs sm:text-sm">
+                <li><strong>SELECT:</strong> Kebijakan baca hanya untuk pengguna sah.</li>
+                <li><strong>INSERT/UPDATE/DELETE:</strong> Kebijakan ketat modifikasi data hanya untuk Admin/pemilik data.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
   </div>
 
-  <footer class="mt-12 mb-8 text-center text-zinc-600 text-sm">
-    MyWebTools Architecture Document v4.0 - MPA Edition
+  <footer class="mt-12 mb-8 text-center text-zinc-600 text-xs">
+    MyWebTools Architecture Document v4.1 - Compact Edition
   </footer>
 
+  <script>
+    // Inisialisasi Lucide Icons
+    lucide.createIcons();
+
+    // Logika Accordion (Vanilla JS)
+    document.addEventListener('DOMContentLoaded', () => {
+      const headers = document.querySelectorAll('.accordion-header');
+      
+      headers.forEach(header => {
+        header.addEventListener('click', () => {
+          const content = header.nextElementSibling;
+          const icon = header.querySelector('.accordion-icon');
+          
+          // Toggle class open untuk animasi grid
+          content.classList.toggle('open');
+          
+          // Putar ikon chevron
+          icon.classList.toggle('rotate-180');
+        });
+      });
+    });
+  </script>
 </body>
 </html>
