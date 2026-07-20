@@ -7,6 +7,8 @@
     { "source": "/dashboard", "destination": "/pages/dashboard" },
     { "source": "/users", "destination": "/pages/users" },
     { "source": "/settings", "destination": "/pages/settings" },
-    { "source": "/roadmap", "destination": "/pages/roadmap" }
+    { "source": "/roadmap", "destination": "/pages/roadmap" },
+    { "source": "/tools", "destination": "/pages/tools" },
+    { "source": "/tools/password-generator", "destination": "/pages/tools/password-generator" }
   ]
 }
