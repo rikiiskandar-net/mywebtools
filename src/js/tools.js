@@ -1,3 +1,4 @@
+import '../style.css';
 import { guardAuthenticated, updateHeaderProfile, setupPageTransitions, setupSidebarToggle, setupGlobalLogout, setupHeaderDropdown, initLucideIcons } from './auth.js';
 
 async function initToolsPage() {
