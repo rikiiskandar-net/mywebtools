@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Roadmap Pengembangan Sistem</title>
+  <title>Peta Jalan Sistem (MPA)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
@@ -29,21 +29,20 @@
   
   <header class="max-w-4xl mx-auto mb-16 text-center">
     <div class="inline-flex items-center gap-3 mb-6 bg-zinc-800/50 px-4 py-2 rounded-full border border-zinc-700/50">
-      <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-      <span class="text-sm font-medium text-zinc-300 tracking-wide">FASE EKSEKUSI AKTIF</span>
+      <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+      <span class="text-sm font-medium text-zinc-300 tracking-wide">ARSITEKTUR MULTI-PAGE (MPA)</span>
     </div>
     <h1 class="text-4xl md:text-6xl font-normal brand-font mb-6 text-zinc-50 tracking-tight">Peta Jalan <span class="text-zinc-500">Aplikasi</span></h1>
     <p class="text-zinc-400 text-lg max-w-2xl mx-auto leading-relaxed">
-      Dokumen ini melacak transisi arsitektur, rencana keamanan, dan fitur masa depan untuk MyWebTools.
+      Dokumen ini melacak modul yang telah diselesaikan dan rencana pengembangan masa depan untuk sistem MyWebTools berbasis Multi-Page Application.
     </p>
   </header>
 
   <div class="max-w-4xl mx-auto space-y-8 relative">
-    
     <!-- Garis konektor background -->
     <div class="absolute left-8 md:left-12 top-10 bottom-10 w-px bg-zinc-800 -z-10"></div>
 
-    <!-- Topik 0 (Baru) -->
+    <!-- FASE SELESAI -->
     <div class="bg-zinc-800 rounded-[24px] p-6 sm:p-8 border border-zinc-700 shadow-lg ring-1 ring-green-900/50 relative overflow-hidden">
       <div class="absolute top-0 right-0 w-32 h-32 bg-green-900/10 rounded-full blur-3xl"></div>
       <div class="flex items-center gap-4 mb-4 relative z-10">
@@ -51,126 +50,79 @@
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
         </div>
         <div class="flex items-center gap-3">
-          <h2 class="text-2xl brand-font font-normal text-zinc-100">Migrasi Arsitektur (SPA ke MPA)</h2>
+          <h2 class="text-2xl brand-font font-normal text-zinc-100">Fondasi & Arsitektur MPA</h2>
           <span class="px-3 py-1 bg-green-900/40 text-green-400 text-xs font-bold rounded-full border border-green-800">SELESAI</span>
         </div>
       </div>
-      <p class="text-zinc-400 mb-4 ml-14 relative z-10">Perubahan dari Single Page Application menjadi Multi-Page Application untuk isolasi halaman yang lebih rapi.</p>
+      <p class="text-zinc-400 mb-4 ml-14 relative z-10">Infrastruktur utama aplikasi web telah berhasil dibangun dan diisolasi ke dalam file HTML independen.</p>
       <div class="ml-14 bg-zinc-900/50 rounded-xl p-4 border border-zinc-700/50 relative z-10 opacity-75">
         <ul class="list-disc list-inside text-zinc-400 space-y-2 text-sm">
-          <li><strong>Pemisahan File:</strong> Halaman Login, Register, Dashboard, Users, dan Settings kini memiliki file HTML dan JS masing-masing.</li>
-          <li><strong>Router Dihapus:</strong> Menggunakan <code>window.location.href</code> sebagai navigasi native browser.</li>
-          <li><strong>Proteksi Ekstra:</strong> Penjaga rute (Guard) mendeteksi status sesi di setiap titik masuk halaman.</li>
+          <li><strong>Struktur File Terpisah:</strong> Berjalan di atas <code>index.html</code> (Redirector), <code>login.html</code>, <code>register.html</code>, dan <code>dashboard.html</code>.</li>
+          <li><strong>Otentikasi Dasar:</strong> Modul Login dan Pendaftaran Supabase sudah beroperasi dengan penjaga rute (Route Guards) di setiap halaman.</li>
+          <li><strong>Pengalaman Pengguna (UI):</strong> Menggunakan gaya desain Google Account (Material Design 3 / Dark Mode).</li>
         </ul>
       </div>
     </div>
 
-    <!-- Topik 0.5 -->
-    <div class="bg-zinc-800 rounded-[24px] p-6 sm:p-8 border border-zinc-700 shadow-lg ring-1 ring-green-900/50 relative overflow-hidden">
-      <div class="absolute top-0 right-0 w-32 h-32 bg-green-900/10 rounded-full blur-3xl"></div>
-      <div class="flex items-center gap-4 mb-4 relative z-10">
-        <div class="w-10 h-10 rounded-full bg-green-900/40 text-green-400 flex items-center justify-center shrink-0">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-        </div>
-        <div class="flex items-center gap-3">
-          <h2 class="text-2xl brand-font font-normal text-zinc-100">Modul Login & Pendaftaran</h2>
-          <span class="px-3 py-1 bg-green-900/40 text-green-400 text-xs font-bold rounded-full border border-green-800">SELESAI</span>
-        </div>
-      </div>
-      <p class="text-zinc-400 mb-4 ml-14 relative z-10">Implementasi sistem otentikasi penuh dengan pendaftaran pengguna baru menggunakan Supabase.</p>
-      <div class="ml-14 bg-zinc-900/50 rounded-xl p-4 border border-zinc-700/50 relative z-10 opacity-75">
-        <ul class="list-disc list-inside text-zinc-400 space-y-2 text-sm">
-          <li><strong>UI Form Dinamis:</strong> Form Login dan Register dapat beralih secara dinamis.</li>
-          <li><strong>Sinkronisasi Sesi:</strong> Modul <code>checkSession</code> mendeteksi status dan mengarahkan rute secara otomatis.</li>
-          <li><strong>Pendaftaran:</strong> Pengguna baru otomatis diberikan metadata <code>role: 'user'</code>.</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Topik 1 -->
-    <div class="bg-zinc-800 rounded-[24px] p-6 sm:p-8 border border-zinc-700 shadow-lg ring-1 ring-green-900/50 relative overflow-hidden">
-      <div class="absolute top-0 right-0 w-32 h-32 bg-green-900/10 rounded-full blur-3xl"></div>
-      <div class="flex items-center gap-4 mb-4 relative z-10">
-        <div class="w-10 h-10 rounded-full bg-green-900/40 text-green-400 flex items-center justify-center shrink-0">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-        </div>
+    <!-- FASE MASA DEPAN 1 -->
+    <div class="bg-zinc-800 rounded-[24px] p-6 sm:p-8 border border-zinc-700 shadow-lg">
+      <div class="flex items-center gap-4 mb-4">
+        <div class="w-10 h-10 rounded-full bg-blue-900/40 text-blue-400 flex items-center justify-center font-bold text-lg shrink-0">1</div>
         <div class="flex items-center gap-3">
           <h2 class="text-2xl brand-font font-normal text-zinc-100">Logika Peran Akses (RBAC)</h2>
-          <span class="px-3 py-1 bg-green-900/40 text-green-400 text-xs font-bold rounded-full border border-green-800">SELESAI</span>
+          <span class="px-3 py-1 bg-blue-900/40 text-blue-400 text-xs font-bold rounded-full border border-blue-800">MENDATANG</span>
         </div>
       </div>
-      <p class="text-zinc-400 mb-4 ml-14 relative z-10">Akses antara Admin dan User biasa berhasil dipisahkan dengan menyuntikkan Role ke dalam JWT klien.</p>
-      <div class="ml-14 bg-zinc-900/50 rounded-xl p-4 border border-zinc-700/50 relative z-10 opacity-75">
-        <ul class="list-disc list-inside text-zinc-400 space-y-2 text-sm mb-3">
-          <li><strong>Mekanisme Keamanan:</strong> Role telah berhasil diikat ke dalam <code>raw_app_meta_data</code> Supabase Auth dan dikawal oleh <code>auth.js</code>.</li>
-          <li>Contoh perintah SQL Editor untuk menetapkan pengguna pertama sebagai Super Admin:</li>
+      <p class="text-zinc-400 mb-4 ml-14">Memisahkan wewenang antara pengguna biasa dan Administrator.</p>
+      <div class="ml-14 bg-zinc-900 rounded-xl p-4 border border-zinc-700/50">
+        <ul class="list-disc list-inside text-zinc-300 space-y-2 text-sm">
+          <li>Memanfaatkan Metadata Supabase (<code>raw_app_meta_data</code>) untuk menyimpan status role.</li>
+          <li>Memberlakukan <em>guard</em> tambahan: Menu tertentu (seperti manajemen pengguna di <code>users.html</code>) otomatis menendang keluar pengguna jika mereka bukan <code>admin</code>.</li>
         </ul>
-        <pre class="bg-black/50 p-4 rounded-lg overflow-x-auto text-xs text-blue-300 border border-zinc-700"><code>-- Ganti email dengan email akun Anda yang terdaftar
-UPDATE auth.users 
-SET raw_app_meta_data = raw_app_meta_data || '{"role": "admin"}' 
-WHERE email = 'admin@example.com';</code></pre>
       </div>
     </div>
 
-    <!-- Topik 2 -->
+    <!-- FASE MASA DEPAN 2 -->
     <div class="bg-zinc-800 rounded-[24px] p-6 sm:p-8 border border-zinc-700 shadow-lg">
       <div class="flex items-center gap-4 mb-4">
         <div class="w-10 h-10 rounded-full bg-blue-900/40 text-blue-400 flex items-center justify-center font-bold text-lg shrink-0">2</div>
-        <h2 class="text-2xl brand-font font-normal text-zinc-100">Relasi & Privasi Dokumen</h2>
+        <div class="flex items-center gap-3">
+          <h2 class="text-2xl brand-font font-normal text-zinc-100">Manajemen Dokumen Penuh</h2>
+          <span class="px-3 py-1 bg-blue-900/40 text-blue-400 text-xs font-bold rounded-full border border-blue-800">MENDATANG</span>
+        </div>
       </div>
-      <p class="text-zinc-400 mb-4 ml-14">Menentukan tingkat privasi atau kepemilikan dokumen yang diunggah.</p>
+      <p class="text-zinc-400 mb-4 ml-14">Menghidupkan tabel dokumen di <code>dashboard.html</code> dengan operasi Create, Read, Update, Delete (CRUD).</p>
       <div class="ml-14 bg-zinc-900 rounded-xl p-4 border border-zinc-700/50">
         <ul class="list-disc list-inside text-zinc-300 space-y-2 text-sm">
-          <li><strong>Status:</strong> Menunggu Keputusan Lanjutan</li>
-          <li><strong>Opsi A:</strong> Semua dokumen bersifat Publik Internal (semua yang login bisa melihat).</li>
-          <li><strong>Opsi B:</strong> Dokumen bersifat Privat (User hanya melihat dokumen miliknya sendiri, Admin melihat semua). Membutuhkan kolom <code>user_id</code>.</li>
+          <li>Mengambil data riwayat dokumen dari database Supabase.</li>
+          <li>Mengaktifkan form unggah dokumen via Modal UI.</li>
+          <li>Menentukan privasi (relasi): Apakah dokumen bersifat Publik (terlihat semua) atau Privat (berbasis <code>user_id</code>).</li>
         </ul>
       </div>
     </div>
 
-    <!-- Topik 3 -->
+    <!-- FASE MASA DEPAN 3 -->
     <div class="bg-zinc-800 rounded-[24px] p-6 sm:p-8 border border-zinc-700 shadow-lg">
       <div class="flex items-center gap-4 mb-4">
         <div class="w-10 h-10 rounded-full bg-blue-900/40 text-blue-400 flex items-center justify-center font-bold text-lg shrink-0">3</div>
-        <h2 class="text-2xl brand-font font-normal text-zinc-100">Fungsionalitas Lanjutan UI</h2>
+        <div class="flex items-center gap-3">
+          <h2 class="text-2xl brand-font font-normal text-zinc-100">Keamanan Database (RLS Policies)</h2>
+          <span class="px-3 py-1 bg-blue-900/40 text-blue-400 text-xs font-bold rounded-full border border-blue-800">MENDATANG</span>
+        </div>
       </div>
-      <p class="text-zinc-400 mb-4 ml-14">Menghidupkan komponen UI yang saat ini masih bersifat statis.</p>
+      <p class="text-zinc-400 mb-4 ml-14">Melindungi API Supabase dari manipulasi jahat dengan mengunci tabel secara logis di level database.</p>
       <div class="ml-14 bg-zinc-900 rounded-xl p-4 border border-zinc-700/50">
         <ul class="list-disc list-inside text-zinc-300 space-y-2 text-sm">
-          <li><strong>Status:</strong> Rencana Ke Depan</li>
-          <li>Mengaktifkan <strong>Search Bar</strong> (Pencarian Real-time).</li>
-          <li>Menambahkan logika <strong>Paginasi (Load More)</strong> jika data lebih dari 50 baris.</li>
+          <li><strong>SELECT:</strong> Kebijakan agar data hanya bisa dibaca oleh pengguna yang telah login secara sah.</li>
+          <li><strong>INSERT/UPDATE/DELETE:</strong> Kebijakan ketat bahwa aksi memodifikasi data hanya bisa dilakukan oleh peran (Role) Admin atau pemilik data.</li>
         </ul>
-      </div>
-    </div>
-
-    <!-- Topik 4 -->
-    <div class="bg-zinc-800 rounded-[24px] p-6 sm:p-8 border border-zinc-700 shadow-lg">
-      <div class="flex items-center gap-4 mb-4">
-        <div class="w-10 h-10 rounded-full bg-blue-900/40 text-blue-400 flex items-center justify-center font-bold text-lg shrink-0">4</div>
-        <h2 class="text-2xl brand-font font-normal text-zinc-100">Keamanan Supabase (RLS)</h2>
-      </div>
-      <p class="text-zinc-400 mb-4 ml-14">Menerapkan Row Level Security pada Database agar API publik tidak bisa memanipulasi data tanpa izin, divalidasi lewat JWT Role.</p>
-      <div class="ml-14 bg-zinc-900 rounded-xl p-4 border border-zinc-700/50">
-        <h3 class="font-bold text-zinc-100 text-sm mb-2">Aturan Spesifik RLS (Contoh untuk Tabel):</h3>
-        <ul class="list-disc list-inside text-zinc-300 space-y-2 text-sm mb-4">
-          <li><strong>SELECT (Akses Baca):</strong> Semua pengguna yang <em>Authenticated</em> (baik user maupun admin) berhak membaca daftar.</li>
-          <li><strong>INSERT/UPDATE/DELETE (Akses Tulis):</strong> HANYA pemilik JWT yang memiliki atribut metadata <code>role = 'admin'</code> yang berhak mengubah data base.</li>
-        </ul>
-        <pre class="bg-black/50 p-4 rounded-lg overflow-x-auto text-xs text-green-300 border border-zinc-700"><code>-- Kebijakan SELECT
-CREATE POLICY "Bolehkan baca untuk authenticated users" ON nama_tabel
-FOR SELECT USING (auth.role() = 'authenticated');
-
--- Kebijakan TULIS/MODIFIKASI (Hanya Admin)
-CREATE POLICY "Hanya Admin yang boleh Tulis" ON nama_tabel 
-FOR ALL USING (auth.jwt() -> 'app_metadata' ->> 'role' = 'admin');</code></pre>
       </div>
     </div>
 
   </div>
 
-  <footer class="mt-12 text-center text-zinc-600 text-sm">
-    Dokumen arsitektur v3.0 - MPA Refactor.
+  <footer class="mt-12 mb-8 text-center text-zinc-600 text-sm">
+    MyWebTools Architecture Document v4.0 - MPA Edition
   </footer>
 
 </body>
