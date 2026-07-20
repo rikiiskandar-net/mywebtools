@@ -17,13 +17,23 @@ export async function checkSession() {
   return { isAuthenticated: false, role: 'guest', user: null };
 }
 
+// Apply RBAC to DOM
+export function applyRBAC(role) {
+  if (role === 'admin') {
+    document.querySelectorAll('[data-admin-only="true"]').forEach(el => {
+      el.classList.remove('hidden');
+    });
+  }
+}
+
 // GUARD: Memastikan pengguna sudah login (Untuk halaman Dashboard, dll)
 export async function guardAuthenticated() {
-  const { isAuthenticated } = await checkSession();
+  const { isAuthenticated, role } = await checkSession();
   if (!isAuthenticated) {
     window.location.replace('/login');
     return false;
   }
+  applyRBAC(role);
   document.body.style.visibility = 'visible';
   return true;
 }
@@ -50,6 +60,7 @@ export async function guardAdmin() {
     window.location.replace('/dashboard');
     return false;
   }
+  applyRBAC(role);
   document.body.style.visibility = 'visible';
   return true;
 }
