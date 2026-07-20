@@ -25,12 +25,34 @@
 </head>
 <body class="p-8 md:p-16 max-w-4xl mx-auto selection:bg-blue-900 selection:text-blue-200">
   
-  <header class="mb-12 text-center">
+  <header class="mb-12 text-center relative z-10">
     <h1 class="text-4xl brand-font font-normal mb-3">Peta Jalan (Roadmap) Proyek</h1>
     <p class="text-zinc-400">Dokumen teknis arsitektur, flow, dan logika keamanan mywebtools.</p>
   </header>
 
-  <div class="space-y-6">
+  <div class="space-y-6 relative z-10">
+
+    <!-- Topik Ekstra (Auth) -->
+    <div class="bg-zinc-800 rounded-[24px] p-6 sm:p-8 border border-zinc-700 shadow-lg ring-1 ring-green-900/50 relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-32 h-32 bg-green-900/10 rounded-full blur-3xl"></div>
+      <div class="flex items-center gap-4 mb-4 relative z-10">
+        <div class="w-10 h-10 rounded-full bg-green-900/40 text-green-400 flex items-center justify-center shrink-0">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+        </div>
+        <div class="flex items-center gap-3">
+          <h2 class="text-2xl brand-font font-normal text-zinc-100">Modul Login & Pendaftaran (Auth SPA)</h2>
+          <span class="px-3 py-1 bg-green-900/40 text-green-400 text-xs font-bold rounded-full border border-green-800">SELESAI</span>
+        </div>
+      </div>
+      <p class="text-zinc-400 mb-4 ml-14 relative z-10">Membangun gerbang masuk aplikasi dengan UI dinamis dan integrasi Supabase Auth yang solid.</p>
+      <div class="ml-14 bg-zinc-900/50 rounded-xl p-4 border border-zinc-700/50 relative z-10 opacity-75">
+        <ul class="list-disc list-inside text-zinc-400 space-y-2 text-sm">
+          <li><strong>UI Form Dinamis:</strong> Form Login dan Register dapat beralih secara dinamis tanpa me-<em>reload</em> halaman.</li>
+          <li><strong>Sinkronisasi Sesi:</strong> Modul <code>onAuthStateChange</code> mendeteksi <code>SIGNED_IN</code> dan <code>SIGNED_OUT</code> untuk mengarahkan rute secara otomatis.</li>
+          <li><strong>Pendaftaran:</strong> Pengguna baru otomatis diberikan metadata <code>role: 'user'</code>.</li>
+        </ul>
+      </div>
+    </div>
 
     <!-- Topik 1 -->
     <div class="bg-zinc-800 rounded-[24px] p-6 sm:p-8 border border-zinc-700 shadow-lg ring-1 ring-green-900/50 relative overflow-hidden">
