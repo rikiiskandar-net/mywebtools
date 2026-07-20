@@ -8,11 +8,11 @@ function cleanUrlPlugin() {
     name: 'clean-urls',
     configureServer(server) {
       server.middlewares.use((req, res, next) => {
-        // If it's a known page without extension (except root), append .html internally
-        const pages = ['/login', '/register', '/dashboard', '/users', '/settings'];
+        // If it's a known page without extension (except root), route it internally to /pages/...html
+        const pages = ['/login', '/register', '/dashboard', '/users', '/settings', '/roadmap'];
         const urlWithoutQuery = req.url.split('?')[0];
         if (pages.includes(urlWithoutQuery)) {
-          req.url = req.url.replace(urlWithoutQuery, urlWithoutQuery + '.html');
+          req.url = req.url.replace(urlWithoutQuery, '/pages' + urlWithoutQuery + '.html');
         }
         next();
       });
@@ -29,11 +29,12 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
-        login: resolve(__dirname, 'login.html'),
-        register: resolve(__dirname, 'register.html'),
-        dashboard: resolve(__dirname, 'dashboard.html'),
-        users: resolve(__dirname, 'users.html'),
-        settings: resolve(__dirname, 'settings.html')
+        login: resolve(__dirname, 'pages/login.html'),
+        register: resolve(__dirname, 'pages/register.html'),
+        dashboard: resolve(__dirname, 'pages/dashboard.html'),
+        users: resolve(__dirname, 'pages/users.html'),
+        settings: resolve(__dirname, 'pages/settings.html'),
+        roadmap: resolve(__dirname, 'pages/roadmap.html')
       }
     }
   }
