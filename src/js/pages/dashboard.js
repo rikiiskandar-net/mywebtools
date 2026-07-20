@@ -1,5 +1,5 @@
 import '../../style.css';
-import { guardAuthenticated, checkSession, updateHeaderProfile, setupGlobalLogout, setupHeaderDropdown } from '../auth';
+import { guardAuthenticated, checkSession, updateHeaderProfile, setupGlobalLogout, setupHeaderDropdown, setupSidebarToggle, initLucideIcons } from '../auth';
 import { initDocsData } from '../documents';
 
 async function init() {
@@ -10,9 +10,11 @@ async function init() {
   updateHeaderProfile(user);
   setupGlobalLogout();
   setupHeaderDropdown();
+  setupSidebarToggle();
+  initLucideIcons();
   
   // Guard untuk menyembunyikan menu Users jika bukan admin
-  const usersNavLink = document.querySelector('a.nav-link[href="/users.html"]');
+  const usersNavLink = document.querySelector('a.nav-link[href="/users"]');
   if (usersNavLink) {
     if (role === 'admin') {
       usersNavLink.classList.remove('hidden');
@@ -25,7 +27,7 @@ async function init() {
 
   // Aktifkan styling link navigasi
   document.querySelectorAll('.nav-link').forEach(el => {
-    if (el.getAttribute('href') === '/dashboard.html') {
+    if (el.getAttribute('href') === '/dashboard') {
       el.classList.add('bg-blue-900/40', 'text-blue-400');
       el.classList.remove('text-zinc-300', 'hover:bg-zinc-800');
     }

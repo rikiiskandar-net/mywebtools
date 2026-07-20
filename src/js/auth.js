@@ -123,3 +123,61 @@ export function setupHeaderDropdown() {
     });
   }
 }
+
+// Setup Desktop Sidebar Toggle (Collapsible)
+export function setupSidebarToggle() {
+  const sidebar = document.getElementById('sidebar');
+  const toggleBtn = document.getElementById('sidebarDesktopToggle');
+  if (!sidebar || !toggleBtn) return;
+
+  const navTexts = sidebar.querySelectorAll('.nav-text');
+  const navLinks = sidebar.querySelectorAll('.nav-link');
+  const toggleIcon = document.getElementById('sidebarToggleIcon');
+
+  const applyState = (collapsed) => {
+    if (collapsed) {
+      sidebar.classList.remove('w-64');
+      sidebar.classList.add('w-20');
+      navTexts.forEach(el => {
+        el.classList.remove('opacity-100');
+        el.classList.add('opacity-0', 'hidden');
+      });
+      navLinks.forEach(el => {
+        el.classList.remove('px-4', 'gap-4', 'justify-start');
+        el.classList.add('px-0', 'justify-center');
+      });
+      if(toggleIcon) toggleIcon.classList.add('rotate-180');
+    } else {
+      sidebar.classList.remove('w-20');
+      sidebar.classList.add('w-64');
+      navTexts.forEach(el => {
+        el.classList.remove('hidden');
+        // timeout for smooth fade in
+        setTimeout(() => el.classList.remove('opacity-0'), 50);
+        el.classList.add('opacity-100');
+      });
+      navLinks.forEach(el => {
+        el.classList.remove('px-0', 'justify-center');
+        el.classList.add('px-4', 'gap-4', 'justify-start');
+      });
+      if(toggleIcon) toggleIcon.classList.remove('rotate-180');
+    }
+  };
+
+  const isCollapsed = localStorage.getItem('sidebar_collapsed') === 'true';
+  applyState(isCollapsed);
+
+  toggleBtn.addEventListener('click', () => {
+    const currentState = localStorage.getItem('sidebar_collapsed') === 'true';
+    const newState = !currentState;
+    localStorage.setItem('sidebar_collapsed', newState);
+    applyState(newState);
+  });
+}
+
+// Inisialisasi Lucide Icons
+export function initLucideIcons() {
+  if (window.lucide) {
+    window.lucide.createIcons();
+  }
+}

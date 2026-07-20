@@ -1,5 +1,5 @@
 import '../../style.css';
-import { guardAdmin, checkSession, updateHeaderProfile, setupGlobalLogout, setupHeaderDropdown } from '../auth';
+import { guardAdmin, checkSession, updateHeaderProfile, setupGlobalLogout, setupHeaderDropdown, setupSidebarToggle, initLucideIcons } from '../auth';
 import { initUsersData } from '../users';
 
 async function init() {
@@ -10,10 +10,12 @@ async function init() {
   updateHeaderProfile(user);
   setupGlobalLogout();
   setupHeaderDropdown();
+  setupSidebarToggle();
+  initLucideIcons();
 
   // Aktifkan styling link navigasi
   document.querySelectorAll('.nav-link').forEach(el => {
-    if (el.getAttribute('href') === '/users.html') {
+    if (el.getAttribute('href') === '/users') {
       el.classList.add('bg-blue-900/40', 'text-blue-400');
       el.classList.remove('text-zinc-300', 'hover:bg-zinc-800');
     }
