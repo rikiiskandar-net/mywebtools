@@ -33,15 +33,21 @@
   <div class="space-y-6">
 
     <!-- Topik 1 -->
-    <div class="bg-zinc-800 rounded-[24px] p-6 sm:p-8 border border-zinc-700 shadow-lg">
-      <div class="flex items-center gap-4 mb-4">
-        <div class="w-10 h-10 rounded-full bg-blue-900/40 text-blue-400 flex items-center justify-center font-bold text-lg shrink-0">1</div>
-        <h2 class="text-2xl brand-font font-normal text-zinc-100">Logika Peran Akses (RBAC)</h2>
+    <div class="bg-zinc-800 rounded-[24px] p-6 sm:p-8 border border-zinc-700 shadow-lg ring-1 ring-green-900/50 relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-32 h-32 bg-green-900/10 rounded-full blur-3xl"></div>
+      <div class="flex items-center gap-4 mb-4 relative z-10">
+        <div class="w-10 h-10 rounded-full bg-green-900/40 text-green-400 flex items-center justify-center shrink-0">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+        </div>
+        <div class="flex items-center gap-3">
+          <h2 class="text-2xl brand-font font-normal text-zinc-100">Logika Peran Akses (RBAC)</h2>
+          <span class="px-3 py-1 bg-green-900/40 text-green-400 text-xs font-bold rounded-full border border-green-800">SELESAI</span>
+        </div>
       </div>
-      <p class="text-zinc-400 mb-4 ml-14">Menentukan batas akses antara Admin dan User biasa dengan menyuntikkan Role ke dalam JWT.</p>
-      <div class="ml-14 bg-zinc-900 rounded-xl p-4 border border-zinc-700/50">
-        <ul class="list-disc list-inside text-zinc-300 space-y-2 text-sm mb-3">
-          <li><strong>Mekanisme Keamanan:</strong> Role akan diikat ke dalam <code>raw_app_meta_data</code> Supabase Auth (bukan sekadar tabel biasa) agar sangat aman dari manipulasi sisi-klien (Client-side).</li>
+      <p class="text-zinc-400 mb-4 ml-14 relative z-10">Akses antara Admin dan User biasa berhasil dipisahkan dengan menyuntikkan Role ke dalam JWT klien.</p>
+      <div class="ml-14 bg-zinc-900/50 rounded-xl p-4 border border-zinc-700/50 relative z-10 opacity-75">
+        <ul class="list-disc list-inside text-zinc-400 space-y-2 text-sm mb-3">
+          <li><strong>Mekanisme Keamanan:</strong> Role telah berhasil diikat ke dalam <code>raw_app_meta_data</code> Supabase Auth dan dikawal oleh <code>router.js</code>.</li>
           <li>Contoh perintah SQL Editor untuk menetapkan pengguna pertama sebagai Super Admin:</li>
         </ul>
         <pre class="bg-black/50 p-4 rounded-lg overflow-x-auto text-xs text-blue-300 border border-zinc-700"><code>-- Ganti email dengan email akun Anda yang terdaftar
