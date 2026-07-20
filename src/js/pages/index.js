@@ -3,9 +3,9 @@ import { checkSession } from '../auth';
 async function init() {
   const { isAuthenticated } = await checkSession();
   if (isAuthenticated) {
-    window.location.href = '/dashboard.html';
+    window.location.replace('/dashboard');
   } else {
-    window.location.href = '/login.html';
+    window.location.replace('/login');
   }
 }
 

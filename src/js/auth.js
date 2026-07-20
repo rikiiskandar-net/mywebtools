@@ -21,7 +21,7 @@ export async function checkSession() {
 export async function guardAuthenticated() {
   const { isAuthenticated } = await checkSession();
   if (!isAuthenticated) {
-    window.location.replace('/login.html');
+    window.location.replace('/login');
     return false;
   }
   document.body.style.visibility = 'visible';
@@ -32,7 +32,7 @@ export async function guardAuthenticated() {
 export async function guardGuest() {
   const { isAuthenticated } = await checkSession();
   if (isAuthenticated) {
-    window.location.replace('/dashboard.html');
+    window.location.replace('/dashboard');
     return false;
   }
   document.body.style.visibility = 'visible';
@@ -43,11 +43,11 @@ export async function guardGuest() {
 export async function guardAdmin() {
   const { isAuthenticated, role } = await checkSession();
   if (!isAuthenticated) {
-    window.location.replace('/login.html');
+    window.location.replace('/login');
     return false;
   }
   if (role !== 'admin') {
-    window.location.replace('/dashboard.html');
+    window.location.replace('/dashboard');
     return false;
   }
   document.body.style.visibility = 'visible';
@@ -86,7 +86,7 @@ export function setupGlobalLogout() {
       try {
         await supabase.auth.signOut();
         // Paksa bersihkan state dan hindari tombol back
-        window.location.replace('/login.html');
+        window.location.replace('/login');
       } catch(err) {
         alert("Gagal logout: " + err.message);
       }
