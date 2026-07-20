@@ -98,7 +98,7 @@ export function updateHeaderProfile(user) {
     
     if (headerName) headerName.textContent = name;
     
-    const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=1e1e1e&color=fff`;
+    const avatarUrl = user.user_metadata?.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=1e1e1e&color=fff`;
     if (headerAvatar) headerAvatar.src = avatarUrl;
     if (headerAvatarLarge) headerAvatarLarge.src = avatarUrl;
     
