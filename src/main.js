@@ -40,7 +40,32 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 3. Nyalakan Mesin Router Utama
+  // 3. Logika Dropdown Profil
+  const profileDropdownBtn = document.getElementById('profileDropdownBtn');
+  const profileDropdownMenu = document.getElementById('profileDropdownMenu');
+  
+  if (profileDropdownBtn && profileDropdownMenu) {
+    profileDropdownBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      profileDropdownMenu.classList.toggle('hidden');
+    });
+
+    // Tutup dropdown jika klik di luar
+    document.addEventListener('click', (e) => {
+      if (!profileDropdownBtn.contains(e.target) && !profileDropdownMenu.contains(e.target)) {
+        profileDropdownMenu.classList.add('hidden');
+      }
+    });
+    
+    // Tutup dropdown saat menu diklik
+    profileDropdownMenu.querySelectorAll('a, button').forEach(item => {
+        item.addEventListener('click', () => {
+            profileDropdownMenu.classList.add('hidden');
+        });
+    });
+  }
+
+  // 4. Nyalakan Mesin Router Utama
   // Ini akan menentukan halaman mana yang muncul pertama kali dan mencegat pengguna tak dikenal
   setupRouter();
 });

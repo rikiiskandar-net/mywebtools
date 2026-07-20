@@ -55,12 +55,15 @@ export function initAuthFlow() {
 export function updateHeaderProfile(user) {
   const headerName = document.getElementById('headerUserName');
   const headerAvatar = document.getElementById('headerUserAvatar');
+  const headerAvatarLarge = document.getElementById('headerUserAvatarLarge');
+  
   if(user && headerName) {
     const name = user.user_metadata?.full_name || 'Admin User';
     headerName.textContent = name;
-    if(headerAvatar) {
-      headerAvatar.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=2563EB&color=fff`;
-    }
+    
+    const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=1e1e1e&color=fff`;
+    if(headerAvatar) headerAvatar.src = avatarUrl;
+    if(headerAvatarLarge) headerAvatarLarge.src = avatarUrl;
   }
 }
 
