@@ -87,10 +87,7 @@
             <i data-lucide="users" class="w-5 h-5 shrink-0"></i>
             <span class="nav-text font-medium text-sm transition-opacity duration-300 whitespace-nowrap">Orang & berbagi</span>
           </a>
-          <a href="/settings" class="nav-link flex items-center gap-4 px-4 py-3 rounded-full text-zinc-300 hover:bg-zinc-800 transition-colors">
-            <i data-lucide="settings" class="w-5 h-5 shrink-0"></i>
-            <span class="nav-text font-medium text-sm transition-opacity duration-300 whitespace-nowrap">Info pribadi</span>
-          </a>
+
         </nav>
       </aside>
 
@@ -112,15 +109,36 @@
           <div class="bg-zinc-800 rounded-[24px] overflow-hidden border border-zinc-700/50 shadow-sm relative transition-all duration-300">
             
             <!-- Read-Only View -->
-            <div id="profileReadOnlyView" class="p-8 flex flex-col items-center opacity-100 transition-opacity duration-300">
-              <img id="roAvatar" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full ring-4 ring-zinc-700/50 mb-4 object-cover" src="https://ui-avatars.com/api/?name=User&background=1e1e1e&color=fff" alt="Profile" />
-              <h3 id="roName" class="text-2xl font-normal brand-font text-zinc-100 mb-1">Memuat...</h3>
-              <p id="roEmail" class="text-zinc-400 text-sm mb-6">Memuat...</p>
-              
-              <button id="btnEditMode" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-full text-sm font-medium transition-colors flex items-center gap-2 shadow-lg shadow-blue-900/20">
-                <i data-lucide="edit-2" class="w-4 h-4"></i>
-                Ubah Info Profil
-              </button>
+            <div id="profileReadOnlyView" class="opacity-100 transition-opacity duration-300">
+              <div class="p-8 flex flex-col items-center border-b border-zinc-700/50">
+                <img id="roAvatar" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full ring-4 ring-zinc-700/50 mb-4 object-cover" src="https://ui-avatars.com/api/?name=User&background=1e1e1e&color=fff" alt="Profile" />
+                <h3 id="roName" class="text-2xl font-normal brand-font text-zinc-100 mb-1">Memuat...</h3>
+                <p id="roEmail" class="text-zinc-400 text-sm mb-6">Memuat...</p>
+                
+                <button id="btnEditMode" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-full text-sm font-medium transition-colors flex items-center gap-2 shadow-lg shadow-blue-900/20">
+                  <i data-lucide="edit-2" class="w-4 h-4"></i>
+                  Ubah Info Profil
+                </button>
+              </div>
+
+              <!-- Data List -->
+              <div class="divide-y divide-zinc-700/50">
+                <!-- Phone -->
+                <div class="flex flex-col sm:flex-row sm:items-center p-6 hover:bg-zinc-700/20 transition-colors">
+                  <div class="w-48 shrink-0 text-zinc-400 text-sm font-medium mb-1 sm:mb-0">Nomor Telepon</div>
+                  <div class="text-zinc-100 flex-1" id="roPhone">-</div>
+                </div>
+                <!-- Address -->
+                <div class="flex flex-col sm:flex-row sm:items-center p-6 hover:bg-zinc-700/20 transition-colors">
+                  <div class="w-48 shrink-0 text-zinc-400 text-sm font-medium mb-1 sm:mb-0">Alamat Tinggal</div>
+                  <div class="text-zinc-100 flex-1" id="roAddress">-</div>
+                </div>
+                <!-- Birth Date -->
+                <div class="flex flex-col sm:flex-row sm:items-center p-6 hover:bg-zinc-700/20 transition-colors">
+                  <div class="w-48 shrink-0 text-zinc-400 text-sm font-medium mb-1 sm:mb-0">Tanggal Lahir</div>
+                  <div class="text-zinc-100 flex-1" id="roBirthDate">-</div>
+                </div>
+              </div>
             </div>
 
             <!-- Edit View -->
@@ -152,8 +170,20 @@
                     <label class="block text-sm font-medium text-zinc-300 mb-1">Email <span class="text-zinc-500 text-xs">(Kredensial)</span></label>
                     <input type="email" id="inputProfileEmail" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-zinc-100 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all" required />
                   </div>
+                  <div>
+                    <label class="block text-sm font-medium text-zinc-300 mb-1">Nomor Telepon</label>
+                    <input type="tel" id="inputProfilePhone" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-zinc-100 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all" placeholder="0812xxxxxx" />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-zinc-300 mb-1">Tanggal Lahir</label>
+                    <input type="date" id="inputProfileBirthDate" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-zinc-100 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all" style="color-scheme: dark;" />
+                  </div>
                   <div class="md:col-span-2">
-                    <label class="block text-sm font-medium text-zinc-300 mb-1">Password Baru <span class="text-zinc-500 text-xs">(Kosongkan jika tidak ingin mengubah)</span></label>
+                    <label class="block text-sm font-medium text-zinc-300 mb-1">Alamat Tinggal</label>
+                    <textarea id="inputProfileAddress" rows="2" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-zinc-100 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all" placeholder="Masukkan alamat lengkap"></textarea>
+                  </div>
+                  <div class="md:col-span-2 pt-4 border-t border-zinc-700/50">
+                    <label class="block text-sm font-medium text-zinc-300 mb-1">Password Baru <span class="text-zinc-500 text-xs">(Kosongkan jika tidak ingin mengubah kredensial log in)</span></label>
                     <input type="password" id="inputProfilePassword" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-zinc-100 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all" placeholder="••••••••" />
                   </div>
                 </div>

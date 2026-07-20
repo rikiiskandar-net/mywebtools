@@ -3,11 +3,24 @@ import { updateHeaderProfile, setupPageTransitions } from './auth';
 
 let isSettingsEventAttached = false;
 let currentUser = null;
+let currentDbUser = null;
 
 export async function initSettingsData() {
   const { data: { user } } = await supabase.auth.getUser();
   if(!user) return;
   currentUser = user;
+  
+  // Ambil data profil ekstra dari tabel users_data
+  const { data: dbUser, error } = await supabase.from('users_data')
+    .select('*')
+    .eq('email', user.email)
+    .single();
+    
+  if (dbUser) {
+    currentDbUser = dbUser;
+  } else {
+    currentDbUser = { phone: '', address: '', birth_date: '' }; // Fallback jika belum ada
+  }
   
   populateProfileViews();
   setupSettingsEvents();
@@ -30,21 +43,42 @@ function populateProfileViews() {
   const roName = document.getElementById('roName');
   const roEmail = document.getElementById('roEmail');
   const roAvatar = document.getElementById('roAvatar');
+  const roPhone = document.getElementById('roPhone');
+  const roAddress = document.getElementById('roAddress');
+  const roBirthDate = document.getElementById('roBirthDate');
 
   if (roName) roName.textContent = fullName;
   if (roEmail) roEmail.textContent = email;
   if (roAvatar) roAvatar.src = avatarUrl;
+  if (roPhone) roPhone.textContent = currentDbUser?.phone || '-';
+  if (roAddress) roAddress.textContent = currentDbUser?.address || '-';
+  
+  if (roBirthDate) {
+    if (currentDbUser?.birth_date) {
+      // Format tanggal sederhana YYYY-MM-DD ke format lokal bisa ditambahkan di sini
+      roBirthDate.textContent = currentDbUser.birth_date;
+    } else {
+      roBirthDate.textContent = '-';
+    }
+  }
 
   // Edit Elements
   const inputProfileName = document.getElementById('inputProfileName');
   const inputProfileEmail = document.getElementById('inputProfileEmail');
   const editAvatarPreview = document.getElementById('editAvatarPreview');
   const inputProfilePassword = document.getElementById('inputProfilePassword');
+  const inputProfilePhone = document.getElementById('inputProfilePhone');
+  const inputProfileAddress = document.getElementById('inputProfileAddress');
+  const inputProfileBirthDate = document.getElementById('inputProfileBirthDate');
   
   if (inputProfileName) inputProfileName.value = fullName;
   if (inputProfileEmail) inputProfileEmail.value = email;
   if (editAvatarPreview) editAvatarPreview.src = avatarUrl;
   if (inputProfilePassword) inputProfilePassword.value = '';
+  
+  if (inputProfilePhone) inputProfilePhone.value = currentDbUser?.phone || '';
+  if (inputProfileAddress) inputProfileAddress.value = currentDbUser?.address || '';
+  if (inputProfileBirthDate) inputProfileBirthDate.value = currentDbUser?.birth_date || '';
 }
 
 export function setupSettingsEvents() {
@@ -73,7 +107,6 @@ export function setupSettingsEvents() {
       
       setTimeout(() => {
         editView.classList.remove('hidden');
-        // Force reflow
         void editView.offsetWidth;
         editView.classList.add('opacity-100');
         editView.classList.remove('opacity-0');
@@ -120,6 +153,10 @@ export function setupSettingsEvents() {
       const newName = document.getElementById('inputProfileName').value;
       const newEmail = document.getElementById('inputProfileEmail').value;
       const newPassword = document.getElementById('inputProfilePassword').value;
+      const newPhone = document.getElementById('inputProfilePhone')?.value || null;
+      const newAddress = document.getElementById('inputProfileAddress')?.value || null;
+      const newBirthDate = document.getElementById('inputProfileBirthDate')?.value || null;
+      
       const avatarFile = inputAvatar?.files[0];
       
       btnSaveProfile.disabled = true;
@@ -164,11 +201,27 @@ export function setupSettingsEvents() {
         if (authError) throw authError;
 
         // 3. Update users_data table
+        const dbUpdatePayload = { 
+          full_name: newName, 
+          email: newEmail || currentUser.email,
+          phone: newPhone,
+          address: newAddress,
+          birth_date: newBirthDate || null
+        };
+        
         const { error: dbError } = await supabase.from('users_data')
-          .update({ full_name: newName, email: newEmail || currentUser.email })
+          .update(dbUpdatePayload)
           .eq('email', currentUser.email); // Gunakan email lama sebagai pencarian
 
-        if (dbError) console.warn("Failed to sync with users_data:", dbError);
+        if (dbError) {
+          // Jika pengguna belum ada di users_data, kita bisa pertimbangkan upsert. 
+          // Tapi asumsikan sudah ada saat registrasi.
+          console.warn("Failed to sync with users_data:", dbError);
+          // throw new Error("Gagal menyimpan ke database profil."); 
+        } else {
+           // Update local cache
+           currentDbUser = { ...currentDbUser, ...dbUpdatePayload };
+        }
         
         // Sukses
         currentUser = authData.user;
