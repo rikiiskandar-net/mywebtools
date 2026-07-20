@@ -1,5 +1,5 @@
 import '../../style.css';
-import { guardAdmin, checkSession, updateHeaderProfile, setupGlobalLogout, setupHeaderDropdown, setupSidebarToggle, initLucideIcons } from '../auth';
+import { guardAdmin, checkSession, updateHeaderProfile, setupGlobalLogout, setupHeaderDropdown, setupSidebarToggle, initLucideIcons, setupPageTransitions } from '../auth';
 import { initUsersData } from '../users';
 
 async function init() {
@@ -12,6 +12,7 @@ async function init() {
   setupHeaderDropdown();
   setupSidebarToggle();
   initLucideIcons();
+  setupPageTransitions();
 
   // Aktifkan styling link navigasi
   document.querySelectorAll('.nav-link').forEach(el => {

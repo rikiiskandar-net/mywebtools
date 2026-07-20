@@ -1,5 +1,5 @@
 import '../../style.css';
-import { guardAuthenticated, checkSession, updateHeaderProfile, setupGlobalLogout, setupHeaderDropdown, setupSidebarToggle, initLucideIcons } from '../auth';
+import { guardAuthenticated, checkSession, updateHeaderProfile, setupGlobalLogout, setupHeaderDropdown, setupSidebarToggle, initLucideIcons, setupPageTransitions } from '../auth';
 import { initSettingsData } from '../settings';
 
 async function init() {
@@ -12,6 +12,7 @@ async function init() {
   setupHeaderDropdown();
   setupSidebarToggle();
   initLucideIcons();
+  setupPageTransitions();
   
   // Guard untuk menyembunyikan menu Users jika bukan admin
   const usersNavLink = document.querySelector('a.nav-link[href="/users"]');

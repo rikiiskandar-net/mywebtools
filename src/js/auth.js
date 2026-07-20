@@ -35,6 +35,13 @@ export async function guardAuthenticated() {
   }
   applyRBAC(role);
   document.body.style.visibility = 'visible';
+  setTimeout(() => {
+    const mainContent = document.getElementById('mainContent');
+    if (mainContent) {
+      mainContent.classList.remove('opacity-0');
+      mainContent.classList.add('opacity-100');
+    }
+  }, 10);
   return true;
 }
 
@@ -46,6 +53,13 @@ export async function guardGuest() {
     return false;
   }
   document.body.style.visibility = 'visible';
+  setTimeout(() => {
+    const mainContent = document.getElementById('mainContent');
+    if (mainContent) {
+      mainContent.classList.remove('opacity-0');
+      mainContent.classList.add('opacity-100');
+    }
+  }, 10);
   return true;
 }
 
@@ -62,6 +76,13 @@ export async function guardAdmin() {
   }
   applyRBAC(role);
   document.body.style.visibility = 'visible';
+  setTimeout(() => {
+    const mainContent = document.getElementById('mainContent');
+    if (mainContent) {
+      mainContent.classList.remove('opacity-0');
+      mainContent.classList.add('opacity-100');
+    }
+  }, 10);
   return true;
 }
 
@@ -180,4 +201,44 @@ export function initLucideIcons() {
   if (window.lucide) {
     window.lucide.createIcons();
   }
+}
+
+// Setup Pre-fetching & Page Transitions
+export function setupPageTransitions() {
+  const navLinks = document.querySelectorAll('a.nav-link');
+  
+  navLinks.forEach(link => {
+    // 1. Pre-fetching
+    link.addEventListener('mouseenter', () => {
+      const href = link.getAttribute('href');
+      if (href && href.startsWith('/')) {
+        const existingLink = document.querySelector(`link[rel="prefetch"][href="${href}"]`);
+        if (!existingLink) {
+          const prefetchLink = document.createElement('link');
+          prefetchLink.rel = 'prefetch';
+          prefetchLink.href = href;
+          document.head.appendChild(prefetchLink);
+        }
+      }
+    });
+
+    // 2. Page Transition on Click
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href');
+      // Abaikan jika href sama dengan path saat ini
+      if (href === window.location.pathname || href === '#') return;
+
+      e.preventDefault();
+      
+      const mainContent = document.getElementById('mainContent');
+      if (mainContent) {
+        mainContent.classList.remove('opacity-100');
+        mainContent.classList.add('opacity-0');
+      }
+      
+      setTimeout(() => {
+        window.location.href = href;
+      }, 150);
+    });
+  });
 }
