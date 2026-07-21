@@ -4,8 +4,8 @@
  */
 
 const HF_API_KEY = import.meta.env.VITE_HF_API_KEY;
-// Menggunakan model Llama-3 yang bagus dalam mengikuti instruksi dan gratis di Inference API
-const MODEL_URL = "https://api-inference.huggingface.co/models/meta-llama/Llama-3.2-3B-Instruct";
+// Menggunakan model Zephyr yang bebas lisensi dan stabil di Inference API
+const MODEL_URL = "https://api-inference.huggingface.co/models/HuggingFaceH4/zephyr-7b-beta";
 
 /**
  * Fungsi untuk menghasilkan prompt gambar dari Hugging Face
@@ -27,11 +27,11 @@ export async function generateImagePrompt(params) {
   if (lighting) userMessage += `Pencahayaan: ${lighting}\n`;
   if (aspectRatio) userMessage += `Aspect Ratio: ${aspectRatio}\n`;
 
-  // Format pesan sesuai kebutuhan Llama-3 Instruct
+  // Format pesan untuk Zephyr
   const payload = {
-    inputs: `<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\n${systemMessage}<|eot_id|><|start_header_id|>user<|end_header_id|>\n\n${userMessage}<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n`,
+    inputs: `<|system|>\n${systemMessage}</s>\n<|user|>\n${userMessage}</s>\n<|assistant|>\n`,
     parameters: {
-      max_new_tokens: 150,
+      max_new_tokens: 200,
       return_full_text: false,
       temperature: 0.7,
       top_p: 0.9,
