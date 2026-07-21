@@ -62,6 +62,6 @@ export default async function handler(req, res) {
     return res.status(200).json({ text: result.trim() });
   } catch (error) {
     console.error("Serverless API Error:", error);
-    return res.status(500).json({ error: "Gagal memproses permintaan ke AI." });
+    return res.status(500).json({ error: `Gagal memproses permintaan ke AI. Detail: ${error.message}` });
   }
 }
