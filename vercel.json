@@ -9,6 +9,7 @@
     { "source": "/settings", "destination": "/pages/settings" },
     { "source": "/roadmap", "destination": "/pages/roadmap" },
     { "source": "/tools", "destination": "/pages/tools" },
-    { "source": "/tools/password-generator", "destination": "/pages/tools/password-generator" }
+    { "source": "/tools/password-generator", "destination": "/pages/tools/password-generator" },
+    { "source": "/tools/image-prompt-builder", "destination": "/pages/tools/prompt-builder" }
   ]
 }

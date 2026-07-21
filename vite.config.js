@@ -9,10 +9,15 @@ function cleanUrlPlugin() {
     configureServer(server) {
       server.middlewares.use((req, res, next) => {
         // If it's a known page without extension (except root), route it internally to /pages/...html
-        const pages = ['/login', '/register', '/dashboard', '/users', '/settings', '/roadmap', '/tools', '/tools/password-generator'];
+        const pages = ['/login', '/register', '/dashboard', '/users', '/settings', '/roadmap', '/tools', '/tools/password-generator', '/tools/image-prompt-builder'];
         const urlWithoutQuery = req.url.split('?')[0];
         if (pages.includes(urlWithoutQuery)) {
-          req.url = req.url.replace(urlWithoutQuery, '/pages' + urlWithoutQuery + '.html');
+          let target = urlWithoutQuery;
+          if (target === '/tools/image-prompt-builder') {
+            req.url = req.url.replace(urlWithoutQuery, '/pages/tools/prompt-builder.html');
+          } else {
+            req.url = req.url.replace(urlWithoutQuery, '/pages' + urlWithoutQuery + '.html');
+          }
         }
         next();
       });
@@ -36,7 +41,8 @@ export default defineConfig({
         settings: resolve(__dirname, 'pages/settings.html'),
         roadmap: resolve(__dirname, 'pages/roadmap.html'),
         tools: resolve(__dirname, 'pages/tools.html'),
-        password_generator: resolve(__dirname, 'pages/tools/password-generator.html')
+        password_generator: resolve(__dirname, 'pages/tools/password-generator.html'),
+        prompt_builder: resolve(__dirname, 'pages/tools/prompt-builder.html')
       }
     }
   }
