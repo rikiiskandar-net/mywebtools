@@ -1,8 +1,11 @@
 import '../../style.css';
-import { guardAuthenticated, updateHeaderProfile, setupPageTransitions, setupSidebarToggle, setupGlobalLogout, setupHeaderDropdown, initLucideIcons } from '../auth.js';
+import { guardAuthenticated, checkSession, updateHeaderProfile, setupPageTransitions, setupSidebarToggle, setupGlobalLogout, setupHeaderDropdown, initLucideIcons } from '../auth.js';
 
 async function initPasswordGenerator() {
-  const { user } = await guardAuthenticated();
+  const allowed = await guardAuthenticated();
+  if (!allowed) return;
+  
+  const { user } = await checkSession();
   if (!user) return;
   
   updateHeaderProfile(user);
